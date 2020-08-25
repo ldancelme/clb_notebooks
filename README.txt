@@ -1,3 +1,5 @@
+https://nbviewer.jupyter.org/github/ldancelme/clb_notebooks/tree/master/
+
 DE_Taille.py
 ============ 
 | input	 : Projet IMC v2.xlsx
@@ -26,6 +28,3 @@ DE_Taille.py
 		input	: mean_std.csv
 		desc	: Scatter plots of random patient height distribution
 		output	: scatterplots = {scatter01.png, scatter02.png, ...}
-
-
-https://www.dataquest.io/blog/jupyter-notebook-tutorial/#:~:text=Your%20first%20Jupyter%20Notebook%20will,you%20your%20notebook%20is%20running.
