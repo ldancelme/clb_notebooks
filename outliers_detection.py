@@ -16,7 +16,7 @@ from matplotlib.offsetbox import AnchoredText
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------
 # //// Load file
-data = pd.read_csv('mean_std.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+data = pd.read_csv('mean_std_v2.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
 
 
 # -----------------------------------------------------------------------------
@@ -39,16 +39,18 @@ data40_70 = data[data['age_at_entry'].isin(age40_70)]
 data70 = data[data['age_at_entry'].isin(age70plus)]
 
 
-ipprs = data20_40['IPPR'].unique()
-# for i in ipprs:
-#     datai = data[data['IPPR'] == i]
+def most_observ(df, lim):
+    ipprs = df['IPPR'].unique()
+      
+    most_observ = pd.DataFrame([i, len(df[df['IPPR'] == i])] for i in ipprs) 
+    most_observ.columns = ['IPPR','len']
+    most_observ = most_observ.sort_values(by='len', ascending=False)
+    most_observ = most_observ[most_observ['len'] >= lim]
+    return most_observ
+    # file_name = "most_observ_" + str(df) + ".csv"
+    # most_observ.to_csv(file_name, index=False)
 
-most_observ = pd.DataFrame([i, len(data[data['IPPR'] == i])] for i in ipprs) 
-most_observ.columns = ['IPPR','len']
-most_observ = most_observ.sort_values(by='len', ascending=False)
-
-
-
+most_observ20 = most_observ(data20, 50)
 
 # -----------------------------------------------------------------------------
 stop = timeit.default_timer()
