@@ -30,10 +30,11 @@ data = pd.read_csv(file, dtype={'Taille' : float, 'Appli_origine' : str, 'mean' 
 data["Taille"] = data["Taille"] *100
 
 # //// Intervalles Age
-age20 = list(range(20 *365)) # Croissance ~ de 0 à 20 ans
-age20_40 = list(range((20 *365), (40 *365))) # Stagnation de 0 à 40 ans 
-age40_70 = list(range((40 *365), (70 *365))) # Diminution taille à partir de 40 ans
+age20 = list(range(20 *365))                    # Croissance ~ de 0 à 20 ans
+age20_40 = list(range((20 *365), (40 *365)))    # Stagnation de 0 à 40 ans 
+age40_70 = list(range((40 *365), (70 *365)))    # Diminution taille à partir de 40 ans
 age70plus = list(range((70 *365) , (110 *365)))
+age20_70 = list(range((20 *365), (70 *365))) 
 
 # //// Separation en groupe selon les intervalles d'age
 data20 = data[data['age_at_entry'].isin(age20)]
@@ -41,6 +42,8 @@ data20.to_csv("data20.csv", index=False)
 data20_40 = data[data['age_at_entry'].isin(age20_40)]
 data40_70 = data[data['age_at_entry'].isin(age40_70)]
 data70 = data[data['age_at_entry'].isin(age70plus)]
+data20_70 = data[data['age_at_entry'].isin(age20_70)]
+
 
 m20, s20 = stats.norm.fit(data20['Taille'])
 m20_40, s20_40 = stats.norm.fit(data20_40['Taille'])
@@ -67,7 +70,9 @@ groups_std = [s20, s20_40, s40_70, s70]
 # //// Some weird values
 data_outliers00 = data[data['age_at_entry'] < 0] # age < 0
 data_outliers01 = data[data['Taille'] > 220]     # Taille > 2.5 m
-
+data_outliers02 = data20[data20["Taille"] > 300] # age < 20 && Taille > 300
+data_outliers03 = data20_70[data20_70['Taille'] > 21] # 
+# data_outliers02.to_csv("ols_ageinf20_taillesup300.csv", index=False)
 
 print('Outliers : age < 0, n = 11, 5 premières valeurs :\n')
 print(data_outliers00.iloc[:5, [1, 4, -2]])
@@ -87,9 +92,7 @@ print(data_outliers01.iloc[:5, [1, 4, -2]])
 # plt.xlabel("Âge")
 # plt.title("Taille du patient ~ Tranche d'Âge", fontsize=16)
 
-# ## export outliers
-# # data_outliers02 = data20[data20["Taille"] > 300]
-# # data_outliers02.to_csv("ols_ageinf20_taillesup300.csv", index=False)
+
 
 # # On recommence en supprimant les valeurs de taille > 300 cm
 # # boxplot w/o outliers
@@ -197,13 +200,13 @@ print(data_outliers01.iloc[:5, [1, 4, -2]])
 # kde_fit(data70)
 
 # //// Z-test
-ztest, pval = st.ztest(data20_40['Taille'], x2=None, value=170.23)
-print(ztest)
-print(float(pval))
+# ztest, pval = st.ztest(data20_40['Taille'], x2=None, value=170.23)
+# print(ztest)
+# print(float(pval))
 
 
-# //// Q-Q plots
-theo = np.random.normal(170.23, 9.92, 358498)
+# //// Q-Q plots | Probplots
+# theo = np.random.normal(170.23, 9.92, 358498)
 # sm.qqplot(theo)
 # sm.qqplot_2samples(data20_40['Taille'], theo)
 
@@ -219,9 +222,9 @@ theo = np.random.normal(170.23, 9.92, 358498)
 # stats.probplot(data70['Taille'], dist="norm", plot=pylab)
 # pylab.show()
 
-probscale.probplot(data20['Taille'], plottype='pp', bestfit=True,
-                   problabel='Percentile', datalabel='Taille (cm)',
-                   line_kws=dict(label='Best-fit line'))
+# probscale.probplot(data20['Taille'], plottype='pp', bestfit=True,
+#                    problabel='Percentile', datalabel='Taille (cm)',
+#                    line_kws=dict(label='Best-fit line'))
 # -----------------------------------------------------------------------------
 stop = timeit.default_timer()
 print()
