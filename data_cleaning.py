@@ -10,7 +10,7 @@
 # In[1]:
 
 
-get_ipython().system('python -m pip install xlwings')
+# get_ipython().system('python -m pip install xlwings')
 
 import pandas as pd
 import numpy as np
@@ -64,30 +64,6 @@ def transform_sheet_to_df(sheet, max_letter, max_row):
 
 # Conversion des sheets en dataframe --> celles qu'on va utiliser pour nettoyer et traiter les données
 taille = transform_sheet_to_df(taille_sheet, taille_max_letter, taille_max_row)
-
-
-# ### CONTRÔLE DE QUALITÉ ET DÉFINITION DES FONCTIONS
-# 
-# Tableau Récapitulatif de toutes les fonctions de Prétraitement et Nettoyage codées par les élèves de Centrale.
-# _________
-# | Processus | Définition | Fonction | Validation | Commentaires |
-# |:-:|:-:|:-:|:-:|:-:|
-# | *Suppression des doublons* | Supprime les lignes identiques dans le tableau | `pandas.DataFrame.drop_duplicates` | Fonctionne (ex : -23488   données de taille) | 0 général, 359 tabagisme, 43748 poids, 23902   taille, 1043 avis nutritionnel, 4 apa. Applicable à toute les données. |
-# | *Suppression des lignes sans identifiant* | Supprime les lignes sans id patient (IPPR) | `Pandas.DataFrame.dropna` | Fonctionne | 2 général, 1 tabagisme,   1 poids, 1 taille, 1 avis nutritionnel, 1 apa. Applicable à toute les données. |
-# | *Remplacement des champs vides* | Ajout de la valeur 'NULL' par défaut dans les champs vides et les champs avec uniquement des espaces | `replace_missing()` `fix_space_only()` | Fonctionne | Applicable à toute les données. |
-# | *Suppression des espaces autours des valeurs* | Utilise la fonction strip pour éliminer les espaces superflus autour des valeurs | `remove_spaces_around()`   |     Fonctionne    | Applicable à toute les données. |
-# | *Remplacement des virgules par des points* | Utilise la fonction replace change toutes les valeurs décimales avec virgule par des points | `put_dot()` |     Fonctionne    | S’applique à toute donnée numérique décimale. |
-# | *Ajout du zéro absent sur les valeurs décimales* | Pour les nombres   décimaux < 1 sans 0. *,5 devient 0,5*    | `add_zero()` `correct_missing_zero()` | Fonctionne | S’applique à toute donnée numérique décimale. |
-# | *Passage des valeurs négatives et positives* | Les valeurs numériques   négatives deviennent positives | `to_positive()`   `change_negative_value()` | Fonctionne | Uniquement pour   certaines données. Ex : l’âge d’un patient ne peut pas être en négatif. |
-# | *Passage X en Majuscule* | X =  'non déterminé' ou 'non évaluable' *x devient X* | `put_maj_x()` `standardize_x()` | Fonctionne | S'applique aux données TNM uniquement. |
-# | *Remplacement de certaines valeurs aberrantes* | Détail : **T** : 'is' devient 0 ; 'IS' devient 0 ; '9' devient 0 ; 'a' et 'T' deviennent ; NULL. **N** : '-' devient 0 ; '+', '°', '_', 'B', '4' et '6' deviennent NULL. **M** : Valeurs > 1 deviennent 1 | `fix_M()` `fix_TNM()` `fix_last_weird_values()` | Fonctionne | Vérifier que ces valeurs n’ont aucun intérêt médical et peuvent être remplacées. S'applique aux données TNM uniquement. |
-# | *Simplification de la valeur du TNM* | Simplification de chaque lettre du TNM pour obtenir un TNM à 3 chiffres.    *Pour T : 2a devient 2* | `get_first_char()` `simplify_TNM()` | Fonctionne | Vérifier que ces   valeurs n’ont aucun intérêt médical et peuvent être remplacées. |
-# | *Standardisation du format de taille* | Passage en m des tailles exprimées cm    *180 (cm) devient 1.80 (m)* | `add_dot()` `check_format()` | Fonctionne | S'applique aux données de taille uniquement. |
-# 
-# 
-# *Note* : Dans ce Notebook on traite uniquement les données de taille
-
-# In[3]:
 
 
 # Delete duplicate data

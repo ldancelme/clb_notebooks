@@ -16,11 +16,16 @@ from matplotlib.offsetbox import AnchoredText
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------
 # //// Load file
-data = pd.read_csv('mean_std.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+data = pd.read_csv('mean_std_v2.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float}, na_values = '')
+most_observ = pd.read_csv('most_observ.csv')
 
+# //// Sort IPPR by the most observations
+# most_observ = pd.DataFrame([i, len(data[data['IPPR'] == i])] for i in ipprs) 
+# most_observ.columns = ['IPPR','len']
+# most_observ = most_observ.sort_values(by='len', ascending=False)
 
 # -----------------------------------------------------------------------------
-#                         5 INTERVALES [0,20,40,70,110] 
+#                         5 INTERVALS [0,20,40,70,110] 
 # -----------------------------------------------------------------------------
 # Taille : m -> cm
 data["Taille"] = data["Taille"] *100
@@ -38,17 +43,13 @@ data20_40 = data[data['age_at_entry'].isin(age20_40)]
 data40_70 = data[data['age_at_entry'].isin(age40_70)]
 data70 = data[data['age_at_entry'].isin(age70plus)]
 
+# -----------------------------------------------------------------------------
+#                         Filter patient w/ 50+ data points 
+# -----------------------------------------------------------------------------
 
-ipprs = data20_40['IPPR'].unique()
-# for i in ipprs:
-#     datai = data[data['IPPR'] == i]
-
-most_observ = pd.DataFrame([i, len(data[data['IPPR'] == i])] for i in ipprs) 
-most_observ.columns = ['IPPR','len']
-most_observ = most_observ.sort_values(by='len', ascending=False)
-
-
-
+most_observ = most_observ[most_observ['len'] > 50]
+most_observ_ippr = np.array(most_observ['IPPR'])
+data20most = data20[data20['IPPR'].isin(most_observ_ippr)]
 
 # -----------------------------------------------------------------------------
 stop = timeit.default_timer()
