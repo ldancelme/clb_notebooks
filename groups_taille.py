@@ -12,7 +12,6 @@ import seaborn as sns
 import statsmodels.api as sm
 from statsmodels.stats import weightstats as st
 from sklearn.neighbors import KernelDensity
-import probscale
 
 
 start = timeit.default_timer()
@@ -20,9 +19,8 @@ start = timeit.default_timer()
 # Load data
 # LOX-PC : file = os.path.join('C:/Users/LOX/Desktop/CLB/test/Taille', 'mean_std_v2.csv')
 # LOX-Mac : file = os.path.join('/Users/loicdancelme/Desktop/Stage_TIS5/test', 'mean_std_v2.csv')
-# CLB-PC : 
-file = os.path.join('C:/Users/dancel/Desktop/DQA/Projet Centrale/Taille', 'mean_std_v2.csv')
-data = pd.read_csv(file, dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+# CLB-PC : file = os.path.join('C:/Users/dancel/Desktop/DQA/Projet Centrale/Taille', 'mean_std_v2.csv')
+data = pd.read_csv('mean_std_v2.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
 
 
 # //// Intervalles Âge 
