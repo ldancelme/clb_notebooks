@@ -24,19 +24,19 @@ lvl3 = pd.read_csv('data/priority_lvl/priority_lvl3.csv', dtype={'Taille' : floa
 lvl2 = pd.read_csv('data/priority_lvl/priority_lvl2.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
 lvl1 = pd.read_csv('data/priority_lvl/priority_lvl1.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
 
-lvl1_iqr = pd.read_csv('lvl1_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
-lvl2_iqr = pd.read_csv('lvl2_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
-lvl3_iqr = pd.read_csv('lvl3_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
-lvl4_iqr = pd.read_csv('lvl4_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+lvl1_iqr = pd.read_csv('data/outliers_res/lvl1_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+lvl2_iqr = pd.read_csv('data/outliers_res/lvl2_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+lvl3_iqr = pd.read_csv('data/outliers_res/lvl3_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+lvl4_iqr = pd.read_csv('data/outliers_res/lvl4_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
 
 # -----------------------------------------------------------------------------
 #                      linear regression model with otl
 # -----------------------------------------------------------------------------
-data20 = lvl1[lvl1['age_at_entry'] < 7200]
-data20 = lvl1[lvl1['age_at_entry'] > 0] # two points < 0
+data20 = lvl1[lvl1.age_at_entry > 7200]
+data20 = data20[data20['age_at_entry'] > 0] # two points < 0
 
 data20.Taille = data20.Taille.apply(lambda x: x*100)
-# data20 = data20.sample(frac=0.5)
+data20 = data20.sample(frac=0.5)
 x = data20['age_at_entry']
 y = data20['Taille']
 # polynomial curve fitting (order=3)
@@ -51,7 +51,7 @@ r2 = r2_score(y, predict(x))
 print('r2: {}'.format(r2))
 
 
-sd_cutoff = 2 # 2 keeps everything
+sd_cutoff = 3 
 Y_hat = predict(x)
 delta = y - Y_hat
 sd_p = np.std(delta)
@@ -75,7 +75,7 @@ ax.set_ylabel('Taille (cm)')
 ax.set_title('Linear Regression Model with outliers, cutoff: 2*std')
 
 # figure.savefig('lm_lvl1_otl+.png', dpi=1080)
-# figure.savefig('lm_lvl1_otl+.svg')
+figure.savefig('lm_lvl1_otl+.svg')
 
 
 # # ------------------------------------------------------------- with outliers

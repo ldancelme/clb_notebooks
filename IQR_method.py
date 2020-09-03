@@ -23,10 +23,14 @@ def sup20(df):
     df = df[df['age_at_entry'] > 7300]
     return df
 
-lvl4 = sup20(lvl4)
-lvl3 = sup20(lvl3)
-lvl2 = sup20(lvl2)
-lvl1 = sup20(lvl1)
+def inf20(df):
+    df = df[df['age_at_entry'] < 7300]
+    return df
+
+lvl4 = inf20(lvl4)
+lvl3 = inf20(lvl3)
+lvl2 = inf20(lvl2)
+lvl1 = inf20(lvl1)
 
 def IQR_outliers(df):
     ippr = df['IPPR'].unique()
@@ -37,7 +41,7 @@ def IQR_outliers(df):
         q25, q50, q75 = df['Taille'].quantile([0.25, 0.50, 0.75])
         iqr = q75 - q25
         cut_off = 1.5*iqr
-        lower, upper = q25 - cut_off, q75 + cut_off
+        lower, upper = q25 - cut_off, q75 + cut_offtaille
         
         print('Tour de boucle : {}, IPPR : {}'.format(idx, val))
         # print('IPPR: {}, q25: {}, q75:{}, lower: {}, upper:{}'.format(i, q25, q75, lower, upper))
@@ -49,28 +53,28 @@ def IQR_outliers(df):
         tour =+ 1
     return dfs
 
-IQR_outliers(lvl1).to_csv('lvl1_IQR_output.csv', index=False)
+IQR_outliers(lvl1).to_csv('lvl1_IQR_output_inf20.csv', index=False)
 print()
 print('=================================================================')
 print('                           LVL1 Fini                             ')
 print('=================================================================')
 print()
 
-IQR_outliers(lvl2).to_csv('lvl2_IQR_output.csv', index=False)
+IQR_outliers(lvl2).to_csv('lvl2_IQR_output_inf20.csv', index=False)
 print()
 print('=================================================================')
 print('                           LVL2 Fini                             ')
 print('=================================================================')
 print()
 
-IQR_outliers(lvl3).to_csv('lvl3_IQR_output.csv', index=False)
+IQR_outliers(lvl3).to_csv('lvl3_IQR_output_inf20.csv', index=False)
 print()
 print('=================================================================')
 print('                           LVL3 Fini                             ')
 print('=================================================================')
 print()
 
-IQR_outliers(lvl4).to_csv('lvl4_IQR_output.csv', index=False)
+IQR_outliers(lvl4).to_csv('lvl4_IQR_output_inf20.csv', index=False)
 print()
 print('=================================================================')
 print('                           LVL4 Fini                             ')
