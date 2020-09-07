@@ -41,7 +41,7 @@ def IQR_outliers(df):
         q25, q50, q75 = df['Taille'].quantile([0.25, 0.50, 0.75])
         iqr = q75 - q25
         cut_off = 1.5*iqr
-        lower, upper = q25 - cut_off, q75 + cut_offtaille
+        lower, upper = q25 - cut_off, q75 + cut_off
         
         print('Tour de boucle : {}, IPPR : {}'.format(idx, val))
         # print('IPPR: {}, q25: {}, q75:{}, lower: {}, upper:{}'.format(i, q25, q75, lower, upper))

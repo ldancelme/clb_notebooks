@@ -38,6 +38,10 @@ data70 = pd.read_csv('data/age_interval/data70.csv', dtype={'Taille' : float, 'A
 # Taille : m -> cm
 data["Taille"] = data["Taille"] *100
 
+def get_df_name(df):
+    name =[x for x in globals() if globals()[x] is df][0]
+    return name
+
 # Find the patient w/ the most height data points
 def most_observ(df, lim):
     ipprs = df['IPPR'].unique()
@@ -45,12 +49,16 @@ def most_observ(df, lim):
     most_observ.columns = ['IPPR','len']
     most_observ = most_observ.sort_values(by='len', ascending=False)
     most_observ = most_observ[most_observ['len'] >= lim]
-    return most_observ
-    # file_name = "most_observ_" + str(df) + ".csv"
-    # most_observ.to_csv(file_name, index=False)
+    
+    df.name = get_df_name(df)
+    file_name = "most_{}_lim{}.csv".format(df.name,lim)
+
+    most_observ.to_csv(file_name, index=False)
+    
+    # return most_observ
 
 # ex, to find 50 patient w/ the most data points : 
-# most_observ20 = most_observ(data20, 50)
+# most_observ(data20_70, 50)
 # most_observ = most_observ[most_observ['len'] > 50]
 # most_observ_ippr = np.array(most_observ['IPPR'])
 # data20most = data20[data20['IPPR'].isin(most_observ_ippr)]

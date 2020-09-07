@@ -38,9 +38,13 @@ age20_70 = list(range((20 *365), (70 *365)))
 data20 = data[data['age_at_entry'].isin(age20)]
 data20.to_csv("data20.csv", index=False)
 data20_40 = data[data['age_at_entry'].isin(age20_40)]
+data20_40.to_csv("data20_40.csv", index=False)
 data40_70 = data[data['age_at_entry'].isin(age40_70)]
+data40_70.to_csv("data40_70.csv", index=False)
 data70 = data[data['age_at_entry'].isin(age70plus)]
+data70.to_csv("data70.csv", index=False)
 data20_70 = data[data['age_at_entry'].isin(age20_70)]
+data20_70.to_csv("data20_70.csv", index=False)
 
 
 m20, s20 = stats.norm.fit(data20['Taille'])
