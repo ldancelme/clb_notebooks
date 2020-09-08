@@ -63,10 +63,10 @@ def zscore_plots(ipprs):
             ax.hlines(mu+theta, x.iloc[0], x.iloc[len(x)-1],'r', linestyles='dashed')
             ax.hlines(mu-theta, x.iloc[0], x.iloc[len(x)-1], 'r', linestyles='dashed')
             ax.set_title('Scatter plot IPPR={}, (z >= 1)'.format(ippr))
-            ax.set_xlabel("Age (jours)")
+            ax.set_xlabel("Âge (jours)")
             ax.set_ylabel("Taille (cm)")
-            fig.savefig('plots/z_score/zscore_{}.svg'.format(ippr))
-            fig.savefig('plots/z_score/zscore_{}.png'.format(ippr), dpi=400)
+            # fig.savefig('plots/z_score/zscore_{}.svg'.format(ippr))
+            # fig.savefig('plots/z_score/zscore_{}.png'.format(ippr), dpi=400)
            
 
 
