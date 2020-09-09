@@ -8,19 +8,17 @@ Created on Thu Aug 27 15:55:32 2020
 import pandas as pd
 import numpy as np
 import timeit
-import matplotlib.pyplot as plt
-import scipy.stats as st
 
 
 # //// Timer, file exec
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------
 # //// Load file
-data = pd.read_csv('mean_std_v2.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float}, na_values = '')
-most_observ = pd.read_csv('most_observ.csv')
+data20 = pd.read_csv('data/age_interval/data20.csv')
+most = pd.read_csv('data/most_observ/most_data20.csv')
 
 # Taille : m -> cm
-data["Taille"] = data["Taille"] *100
+data20["Taille"] = data20["Taille"]
 
 # -----------------------------------------------------------------------------
 #                               Fonctions Utiles
@@ -42,40 +40,37 @@ def get_first_date(df, ippr):
     df = df[df['IPPR'] == ippr]
     first = df['age_at_entry'].min()
     return first
+# first_date = [get_first_date(data20, x) for x in data20.IPPR]
+# data20['first_date'] = first_date
+
 
 # Retourne la dernière date de saisie de poids d'un patient
 def get_last_date(df, ippr):
     df = df[df['IPPR'] == ippr]
     last = df['age_at_entry'].max()
     return last
+# last_date = [get_last_date(data20, x) for x in data20.IPPR]
+# data20['last_date'] = last_date
+
+
 
 # Retourne le nb de jours entre la 1ère et denière date de saisie de poids
-def get_period(df , ippr):
+def get_period(df, ippr):
     first = get_first_date(df, ippr)
     last = get_last_date(df, ippr)
     return last - first
+# period = [get_period(data20, x) for x in data20.IPPR]
+# data20['period'] = period
 
 # Retourne le nombre de taille saisie pour un patient
 def count_observ(df, ippr):
     count = len(df[df['IPPR'] == ippr])
     return count
 
-
-# -----------------------------------------------------------------------------
-#                           Outliers Detect° Fct°
-# -----------------------------------------------------------------------------
-
-def IQR_outliers(df, ippr):
-    df = df[df['IPPR'] == ippr]
-    q25, q50, q75 = df['Taille'].quantile([0.25, 0.50, 0.75])
-    iqr = q75 - q25
-    cut_off = 1.5*iqr
-    lower, upper = q25 - cut_off, q75 + cut_off
-    outliers = [x for x in df['Taille'] if x < lower or x > upper]
-    outliers_removed = [x for x in df['Taille'] if x > lower and x < upper ]
-    # for x in df: 
-    #     outliers
-    return outliers, outliers_removed
+# zeros = [0] * 105239
+# data20.insert(11, 'count', zeros)
+# most_uniq = most.set_index('IPPR')['len'].to_dict()
+# data20['count'] = data20['IPPR'].map(most_uniq)
 
 
 # -----------------------------------------------------------------------------

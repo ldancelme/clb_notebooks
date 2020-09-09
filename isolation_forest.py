@@ -27,7 +27,10 @@ data = pd.read_csv('data/age_interval/data20_70.csv')
 most = pd.read_csv('data/most_observ/most_data20_70_lim50.csv')
 ipprs = pd.read_csv('plots/z_score/ippr_zscore.csv')
 ipprs = ipprs.IPPR
-ipprs_iforest = pd.read_csv('plots/iForest/ippr_iForest.csv')
+# ipprs_iforest = pd.read_csv('plots/iForest/ippr_iForest.csv')
+# ipprs_iforest = pd.read_csv('data/special_ipprs/special_ipprs_data20.csv')
+ipprs_iforest = pd.read_csv('data/most_observ/most_data20.csv')
+ipprs_iforest = ipprs_iforest.iloc[:10,:]
 ipprs_iforest = ipprs_iforest.IPPR
 
 data = data[data['std'].notna()]
@@ -55,7 +58,7 @@ def isolation_forest(ipprs_iforest):
         pred = clf.predict(X_train)
         score = clf.score_samples(X_train)
         df['otl'] = pred                  # Binary (-1 if otl else 1)
-        df['score'] = score               # -1 < otl score < 0
+        df['score'] = abs(score)               # -1 < otl score < 0
          
         # Print df Taille, otl(bin), otl(score)
         print(df.iloc[:,np.r_[4, 8:10]])
@@ -74,12 +77,12 @@ def isolation_forest(ipprs_iforest):
         ax.set_ylabel("Taille (cm)")
         
         # Save figures
-        fig.savefig('plots/iForest/iForest_{}.svg'.format(ippr), bbox_extra_artists=(lgd,))
-        fig.savefig('plots/iForest/iForest_{}.png'.format(ippr), bbox_extra_artists=(lgd,), dpi=1080)
+        # fig.savefig('plots/iForest/iForest_{}.svg'.format(ippr), bbox_extra_artists=(lgd,))
+        # fig.savefig('plots/iForest/iForest_{}.png'.format(ippr), bbox_extra_artists=(lgd,), dpi=1080)
         
     
         
-# isolation_forest(ipprs)
+isolation_forest(ipprs)
 
 
 
