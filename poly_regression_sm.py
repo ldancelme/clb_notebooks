@@ -14,8 +14,6 @@ import statsmodels.api as sm
 from sklearn.preprocessing import PolynomialFeatures
 from statsmodels.sandbox.regression.predstd import wls_prediction_std
 
-    
-
 # //// Timer, file exec
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------

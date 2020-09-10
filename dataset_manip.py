@@ -14,11 +14,10 @@ import timeit
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------
 # //// Load file
-data20 = pd.read_csv('data/age_interval/data20.csv')
+# data20 = pd.read_csv('data/age_interval/data20.csv')
+all_data = pd.read_csv('mean_std_v3.csv')
 most = pd.read_csv('data/most_observ/most_data20.csv')
 
-# Taille : m -> cm
-data20["Taille"] = data20["Taille"]
 
 # -----------------------------------------------------------------------------
 #                               Fonctions Utiles
@@ -40,8 +39,8 @@ def get_first_date(df, ippr):
     df = df[df['IPPR'] == ippr]
     first = df['age_at_entry'].min()
     return first
-# first_date = [get_first_date(data20, x) for x in data20.IPPR]
-# data20['first_date'] = first_date
+# first_date = [get_first_date(all_data, x) for x in all_data.IPPR]
+# all_data['first_date'] = first_date
 
 
 # Retourne la dernière date de saisie de poids d'un patient
@@ -49,10 +48,9 @@ def get_last_date(df, ippr):
     df = df[df['IPPR'] == ippr]
     last = df['age_at_entry'].max()
     return last
-# last_date = [get_last_date(data20, x) for x in data20.IPPR]
-# data20['last_date'] = last_date
-
-
+# last_date = [get_last_date(all_data, x) for x in all_data.IPPR]
+# all_data['last_date'] = last_date
+# all_data['period'] = all_data['last_date'] - all_data['first_date']
 
 # Retourne le nb de jours entre la 1ère et denière date de saisie de poids
 def get_period(df, ippr):
@@ -67,10 +65,11 @@ def count_observ(df, ippr):
     count = len(df[df['IPPR'] == ippr])
     return count
 
-# zeros = [0] * 105239
-# data20.insert(11, 'count', zeros)
-# most_uniq = most.set_index('IPPR')['len'].to_dict()
-# data20['count'] = data20['IPPR'].map(most_uniq)
+count = all_data.groupby('IPPR', sort=False)['Taille'].count()
+zeros = [0] * 447754
+all_data.insert(11, 'count', zeros)
+count = count.to_dict()
+all_data['count'] = all_data['IPPR'].map(count)
 
 
 # -----------------------------------------------------------------------------

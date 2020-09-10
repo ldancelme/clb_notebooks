@@ -23,33 +23,27 @@ warnings.filterwarnings('ignore')
 # //// Timer, file exec
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------
-data = pd.read_csv('data/age_interval/data20_70.csv')
-most = pd.read_csv('data/most_observ/most_data20_70_lim50.csv')
-ipprs = pd.read_csv('plots/z_score/ippr_zscore.csv')
-ipprs = ipprs.IPPR
-# ipprs_iforest = pd.read_csv('plots/iForest/ippr_iForest.csv')
-# ipprs_iforest = pd.read_csv('data/special_ipprs/special_ipprs_data20.csv')
-ipprs_iforest = pd.read_csv('data/most_observ/most_data20.csv')
-ipprs_iforest = ipprs_iforest.iloc[:10,:]
-ipprs_iforest = ipprs_iforest.IPPR
+data = pd.read_csv('data/age_interval/all_data.csv')
+most = pd.read_csv('data/most_observ/most_data20.csv')
 
-data = data[data['std'].notna()]
-data = data[data['std'] != 0]
-# ipprs = most['IPPR'].unique()
-# ipprs = np.random.choice(ipprs, size=10)
+# data20 = data20[data20['std'].notna()]
+# data20 = data20[data20['std'] != 0]
+# globals().update({'df' + str(ippr): data[data['IPPR'] == ippr] for ippr in ipprs})
 
-globals().update({'df' + str(ippr): data[data['IPPR'] == ippr] for ippr in ipprs})
+# -----------------------------------------------------------------------------
+#                                   Modelling
+# -----------------------------------------------------------------------------
+ipprs = most['IPPR'].unique()
+ipprs = np.random.choice(ipprs, size=10)
 
 def isolation_forest(ipprs_iforest):
     for ippr in ipprs:
         print("IPPR: {}".format(ippr))
-        df = data[data['IPPR'] == ippr]
-        X_train = df.Taille
-        age = df.age_at_entry
+        data20 = data20[data20['IPPR'] == ippr]
+        X_train = data20.Taille
         X_train = np.array(X_train)
         X_train = X_train.reshape(-1, 1)
         
-        # ----------------------------------------------------------- Modelling
         # iForest model design
         clf = IsolationForest(max_samples='auto', random_state=0)
         # Training
@@ -57,43 +51,60 @@ def isolation_forest(ipprs_iforest):
         # Prediction output
         pred = clf.predict(X_train)
         score = clf.score_samples(X_train)
-        df['otl'] = pred                  # Binary (-1 if otl else 1)
-        df['score'] = abs(score)               # -1 < otl score < 0
+        data20['otl'] = pred                  # Binary (-1 if otl else 1)
+        data20['score'] = abs(score)          # -1 < otl score < 0
          
-        # Print df Taille, otl(bin), otl(score)
-        print(df.iloc[:,np.r_[4, 8:10]])
-        print("\nTableau outliers count :\n{}\n{}\n".format(df['otl'].value_counts(), '-'*35))
+        # Print data20 Taille, otl(bin), otl(score)
+        print(data20.iloc[:,np.r_[4, 8:10]])
+        print("\nTableau outliers count :\n{}\n{}\n".format(data20['otl'].value_counts(), '-'*35))
         
-        # ------------------------------------------------------------ Plotting        
-        X_train = df.Taille # array to df
-        otl = df.loc[df['otl'] == -1]
-        otl_index=list(otl.index) # index of outliers
-        fig, ax = plt.subplots(figsize=(7,4))
-        ax.scatter(age[otl_index], X_train[otl_index], marker= 'x', c='r', s=60, label='outliers')
-        ax.scatter(age, X_train, c='green', alpha=0.5, s=20, label='inliers')
-        ax.set_title('Scatter plot IPPR={} (IsolationForest)'.format(ippr))
-        lgd = ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-        ax.set_xlabel("Âge (jours)")
-        ax.set_ylabel("Taille (cm)")
         
-        # Save figures
-        # fig.savefig('plots/iForest/iForest_{}.svg'.format(ippr), bbox_extra_artists=(lgd,))
-        # fig.savefig('plots/iForest/iForest_{}.png'.format(ippr), bbox_extra_artists=(lgd,), dpi=1080)
+def isolation_forest(df, ippr):
+    print("IPPR: {}".format(ippr))
+    df = df[df.IPPR == ippr]
+    X_train = df.Taille
+    X_train = np.array(X_train)
+    X_train = X_train.reshape(-1, 1)
+    # iForest model design
+    clf = IsolationForest(max_samples='auto', random_state=0)
+    # Training
+    clf.fit(X_train)
+    # Prediction output
+    otl = clf.predict(X_train)
+    score = clf.score_samples(X_train)
+    df['otl'] = otl                    # Binary (-1 if otl else 1)
+    df['score'] = abs(score)           # -1 < otl score < 0
+     
+    # Print df Taille, otl(bin), otl(score)
+    print(df.iloc[:,np.r_[4, 12:14]])
+    print("\nTableau outliers count :\n{}\n{}\n".format(df['otl'].value_counts(), '-'*35))
+    
+    return otl, score
+
+data = data[data.age_at_entry > 7200]
+otl, score = [isolation_forest(data, x) for x in data.IPPR.unique()]
+# data20['otl_iForest'] = otl                    # Binary (-1 if otl else 1)
+# data20['score_iForest'] = abs(score)           # -1 < otl score < 0
+
+# ------------------------------------------------------------ Plotting        
+def plot_iforest(df, ippr):
+    X_train = df.Taille # array to df
+    age = df.age_at_entry
+    otl = df.loc[df['otl'] == -1]
+    otl_index=list(otl.index) # index of outliers
+    fig, ax = plt.subplots(figsize=(7,4))
+    ax.scatter(age[otl_index], X_train[otl_index], marker= 'x', c='r', s=60, label='outliers')
+    ax.scatter(age, X_train, c='green', alpha=0.5, s=20, label='inliers')
+    ax.set_title('Scatter plot IPPR={} (IsolationForest)'.format(ippr))
+    lgd = ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    ax.set_xlabel("Âge (jours)")
+    ax.set_ylabel("Taille (cm)")
+    
+    ## Save figures
+    # fig.savefig('plots/iForest/iForest_{}.svg'.format(ippr), bbox_extra_artists=(lgd,))
+    # fig.savefig('plots/iForest/iForest_{}.png'.format(ippr), bbox_extra_artists=(lgd,), dpi=1080)
         
     
-        
-isolation_forest(ipprs)
-
-
-
-
-
-
-
-
-
-
-
 # -----------------------------------------------------------------------------
 stop = timeit.default_timer()
 print()
