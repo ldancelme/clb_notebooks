@@ -37,7 +37,7 @@ ipprs = most['IPPR'].unique()
 ipprs = np.random.choice(ipprs, size=10)
 
 def isolation_forest(ipprs_iforest):
-    for ippr in ipprs:
+    for ippr in ipprs:  
         print("IPPR: {}".format(ippr))
         data20 = data20[data20['IPPR'] == ippr]
         X_train = data20.Taille
