@@ -81,8 +81,8 @@ def isolation_forest(df, ippr):
     
     return otl, score
 
-data = data[data.age_at_entry > 7200]
-otl, score = [isolation_forest(data, x) for x in data.IPPR.unique()]
+# data = data[data.age_at_entry > 7200]
+# otl, score = [isolation_forest(data, x) for x in data.IPPR.unique()]
 # data20['otl_iForest'] = otl                    # Binary (-1 if otl else 1)
 # data20['score_iForest'] = abs(score)           # -1 < otl score < 0
 
