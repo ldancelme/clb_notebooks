@@ -24,6 +24,8 @@ most = pd.read_csv('data/most_observ/most_data20_70_lim50.csv')
 ipprs_iforest = pd.read_csv('plots/iForest/ippr_iForest.csv')
 ipprs_iforest = ipprs_iforest.IPPR
 
+ipprs = most['IPPR']
+ipprs.to_csv("ipprs_index.csv", index=True)
 
 # data = data[data['std'] > 0.001]
 print(len(data))

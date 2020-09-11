@@ -36,8 +36,8 @@ data20 = lvl1[lvl1.age_at_entry < 7200]
 data20 = data20[data20['age_at_entry'] > 0] # two points < 0
 data20.Taille = data20.Taille.apply(lambda x: x*100)
 # Keep x % of observations
-per = 0.1
-data20 = data20.sample(frac= per)
+# per = 0.1
+# data20 = data20.sample(frac= per)
 
 # -----------------------------------------------------------------------------
 #                                   Modelling
@@ -62,6 +62,7 @@ pred = predict(x)
 delta = y - pred
 sd_p = np.std(delta)
 ok = abs(delta) < sd_p * sd_cutoff
+
 
 # -----------------------------------------------------------------------------
 #                                   Plotting
@@ -119,8 +120,8 @@ def hist_2d(x, y, col):
     ax_h[0].set_title('ScatterPlot : y ~ y_hat')
     ax_h[1].set_title('ScatterPlot : e ~ y_hat')
     
-hist_2d(y, pred, 0)
-hist_2d(e, pred, 1)
+# hist_2d(y, pred, 0)
+# hist_2d(e, pred, 1)
 
 
 # Scatter Plot
