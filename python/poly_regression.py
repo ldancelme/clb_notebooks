@@ -19,20 +19,21 @@ start = timeit.default_timer()
 # -----------------------------------------------------------------------------
 
 # Import data by data sources
-lvl4 = pd.read_csv('mean_std_v2.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
-lvl3 = pd.read_csv('data/priority_lvl/priority_lvl3.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
-lvl2 = pd.read_csv('data/priority_lvl/priority_lvl2.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
-lvl1 = pd.read_csv('data/priority_lvl/priority_lvl1.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+lvl4 = pd.read_csv('../data/age_interval/all_data.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+lvl3 = pd.read_csv('../data/priority_lvl/priority_lvl3.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+lvl2 = pd.read_csv('../data/priority_lvl/priority_lvl2.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+lvl1 = pd.read_csv('../data/priority_lvl/priority_lvl1.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
 
-lvl1_iqr = pd.read_csv('data/outliers_res/lvl1_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
-lvl2_iqr = pd.read_csv('data/outliers_res/lvl2_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
-lvl3_iqr = pd.read_csv('data/outliers_res/lvl3_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
-lvl4_iqr = pd.read_csv('data/outliers_res/lvl4_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+# lvl1_iqr = pd.read_csv('data/outliers_res/lvl1_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+# lvl2_iqr = pd.read_csv('data/outliers_res/lvl2_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+# lvl3_iqr = pd.read_csv('data/outliers_res/lvl3_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+# lvl4_iqr = pd.read_csv('data/outliers_res/lvl4_IQR_output.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
 
 # -----------------------------------------------------------------------------
 #                           Linear regression model
 # -----------------------------------------------------------------------------
-data20 = lvl1[lvl1.age_at_entry < 7200]
+data = lvl1
+data20 = data[data.age_at_entry < 7200]
 data20 = data20[data20['age_at_entry'] > 0] # two points < 0
 data20.Taille = data20.Taille.apply(lambda x: x*100)
 # Keep x % of observations
@@ -46,7 +47,7 @@ data = data20
 x = data['age_at_entry']
 y = data['Taille']
 
-# polynomial curve fitting (order=3)
+# polynomial curve fitting
 p = np.polyfit(x, y, 5)
 
 # model
@@ -95,33 +96,7 @@ ax.set_title('Linear Regression Model with outliers, cutoff: 2*std')
 # residuals -> e
 e = y - pred 
 
-# Hist2d 
-figure, ax_h = plt.subplots(nrows=1, ncols=2, figsize=(15,8))
-def hist_2d(x, y, col):
-    h = ax_h[col].hist2d(x, y, bins=75, cmap=plt.cm.jet)
 
-    ax_h[col].set_xlabel('Taille')
-    ax_h[col].set_ylabel('Taille Prédite')
-    
-    p = np.polyfit(x, y, 1)
-    predict = np.poly1d(p)
-    r2 = r2_score(y, predict(x))
-    
-    minx = round(int(min(x)), 1)
-    maxx = round(int(max(x)) ,1)
-    x_lm = range(minx, maxx)    
-    
-    ax_h[col].plot(x_lm, predict(x_lm), c='orange', label='$r^2$: {}'.format(np.round(r2, 3)))
-    ax_h[col].legend()
-    ax_h[col].set_xticks(np.arange(min(x), max(x)+1, 10.0))
-    ax_h[col].set_yticks(np.arange(min(y), max(y)+1, 10.0))
-    
-    ax_h[col].grid()
-    ax_h[0].set_title('ScatterPlot : y ~ y_hat')
-    ax_h[1].set_title('ScatterPlot : e ~ y_hat')
-    
-# hist_2d(y, pred, 0)
-# hist_2d(e, pred, 1)
 
 
 # Scatter Plot
@@ -152,6 +127,35 @@ def scatter_plt(x, y, col):
 scatter_plt(y, pred, 0)
 scatter_plt(pred, e, 1)
 
+
+# # -----------------------------------------------------------------------------
+# Hist2d 
+figure, ax_h = plt.subplots(nrows=1, ncols=2, figsize=(15,8))
+def hist_2d(x, y, col):
+    h = ax_h[col].hist2d(x, y, bins=75, cmap=plt.cm.jet)
+
+    ax_h[col].set_xlabel('Taille')
+    ax_h[col].set_ylabel('Taille Prédite')
+    
+    p = np.polyfit(x, y, 1)
+    predict = np.poly1d(p)
+    r2 = r2_score(y, predict(x))
+    
+    minx = round(int(min(x)), 1)
+    maxx = round(int(max(x)) ,1)
+    x_lm = range(minx, maxx)    
+    
+    ax_h[col].plot(x_lm, predict(x_lm), c='orange', label='$r^2$: {}'.format(np.round(r2, 3)))
+    ax_h[col].legend()
+    ax_h[col].set_xticks(np.arange(min(x), max(x)+1, 10.0))
+    ax_h[col].set_yticks(np.arange(min(y), max(y)+1, 10.0))
+    
+    ax_h[col].grid()
+    ax_h[0].set_title('ScatterPlot : y ~ y_hat')
+    ax_h[1].set_title('ScatterPlot : e ~ y_hat')
+    
+# hist_2d(y, pred, 0)
+# hist_2d(e, pred, 1)
 
 
 # -----------------------------------------------------------------------------
