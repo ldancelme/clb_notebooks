@@ -23,8 +23,8 @@ warnings.filterwarnings('ignore')
 # //// Timer, file exec
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------
-data = pd.read_csv('data/age_interval/all_data.csv')
-most = pd.read_csv('data/most_observ/most_data20.csv')
+data = pd.read_csv('../data/age_interval/all_data.csv')
+most = pd.read_csv('../data/most_observ/most_data20.csv')
 
 # data20 = data20[data20['std'].notna()]
 # data20 = data20[data20['std'] != 0]
