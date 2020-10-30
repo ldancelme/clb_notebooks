@@ -23,9 +23,10 @@ warnings.filterwarnings('ignore')
 # //// Timer, file exec
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------
-data = pd.read_csv('../data/age_interval/all_data.csv')
-most = pd.read_csv('../data/most_observ/most_data20.csv')
+# data = pd.read_csv('../data/age_interval/all_data.csv')
+data = pd.read_csv('../data/clean_poids.csv')
 
+# most = pd.read_csv('../data/most_observ/most_data20.csv')
 # data20 = data20[data20['std'].notna()]
 # data20 = data20[data20['std'] != 0]
 # globals().update({'df' + str(ippr): data[data['IPPR'] == ippr] for ippr in ipprs})
@@ -33,30 +34,30 @@ most = pd.read_csv('../data/most_observ/most_data20.csv')
 # -----------------------------------------------------------------------------
 #                                   Modelling
 # -----------------------------------------------------------------------------
-ipprs = most['IPPR'].unique()
-ipprs = np.random.choice(ipprs, size=10)
+# ipprs = most['IPPR'].unique()
+# ipprs = np.random.choice(ipprs, size=10)
 
-def isolation_forest(ipprs_iforest):
-    for ippr in ipprs:  
-        print("IPPR: {}".format(ippr))
-        data20 = data20[data20['IPPR'] == ippr]
-        X_train = data20.Taille
-        X_train = np.array(X_train)
-        X_train = X_train.reshape(-1, 1)
+# def isolation_forest(ipprs_iforest):
+#     for ippr in ipprs:  
+#         print("IPPR: {}".format(ippr))
+#         data = data[data['IPPR'] == ippr]
+#         X_train = data.Taille
+#         X_train = np.array(X_train)
+#         X_train = X_train.reshape(-1, 1)
         
-        # iForest model design
-        clf = IsolationForest(max_samples='auto', random_state=0)
-        # Training
-        clf.fit(X_train)
-        # Prediction output
-        pred = clf.predict(X_train)
-        score = clf.score_samples(X_train)
-        data20['otl'] = pred                  # Binary (-1 if otl else 1)
-        data20['score'] = abs(score)          # -1 < otl score < 0
+#         # iForest model design
+#         clf = IsolationForest(max_samples='auto', random_state=0)
+#         # Training
+#         clf.fit(X_train)
+#         # Prediction output
+#         pred = clf.predict(X_train)
+#         score = clf.score_samples(X_train)
+#         data['otl'] = pred                  # Binary (-1 if otl else 1)
+#         data['score'] = abs(score)          # -1 < otl score < 0
          
-        # Print data20 Taille, otl(bin), otl(score)
-        print(data20.iloc[:,np.r_[4, 8:10]])
-        print("\nTableau outliers count :\n{}\n{}\n".format(data20['otl'].value_counts(), '-'*35))
+#         # Print data20 Taille, otl(bin), otl(score)
+#         print(data.iloc[:,np.r_[4, 8:10]])
+#         print("\nTableau outliers count :\n{}\n{}\n".format(data['otl'].value_counts(), '-'*35))
         
         
 def isolation_forest(df, ippr):
@@ -103,7 +104,8 @@ def plot_iforest(df, ippr):
     ## Save figures
     # fig.savefig('plots/iForest/iForest_{}.svg'.format(ippr), bbox_extra_artists=(lgd,))
     # fig.savefig('plots/iForest/iForest_{}.png'.format(ippr), bbox_extra_artists=(lgd,), dpi=1080)
-        
+
+plot_iforest(data, 7778)    
     
 # -----------------------------------------------------------------------------
 stop = timeit.default_timer()

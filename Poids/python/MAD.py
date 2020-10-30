@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Created on Thu Oct 15 11:18:58 2020
@@ -45,7 +46,8 @@ def list_mad(l):
     b = 1/Q
     Abs = [abs(x-M) for x in l]
     MedAbs = np.median(Abs)
-    MAD = b*MedAbs
+    # MAD = b*MedAbs
+    MAD = MedAbs
     return MAD
     
 def mad_test(df, ippr):
@@ -93,12 +95,16 @@ def window(seq, k):
 def windowed_mad(ippr, k):
     df= data[data['IPPR'] == ippr]
     p= df.Poids.values
+    t= df.age_at_entry.values
     print(p)
-    for w in window(p,k):
-        print('windowed list (n={}): {}'.format(k, w))
-        print('MAD: {}\n'.format(list_mad(w)))
-        
-windowed_mad(28,4)
+    print(t)
+    for i, w in enumerate(window(p,k)):
+        print('{} | windowed list (n={}): {}'.format(i, k, w))
+        print('{} | MAD: {}'.format(i, list_mad(w)))
+    for i, t in enumerate(window(t, k)):
+        print('{} | windowed list (n={}): {}'.format(i, k, t[4]-t[0]))
+
+windowed_mad(5418634,5)
 
 
 # iterable = np.arange(10)

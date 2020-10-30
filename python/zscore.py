@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 """
 Created on Fri Sep  4 09:29:04 2020
 
@@ -16,21 +16,21 @@ import matplotlib.pyplot as plt
 # //// Timer, file exec
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------
-data = pd.read_csv('data/age_interval/data20_70.csv')
-clean = pd.read_csv('data/outliers_res/lvl1_IQR_output.csv')
-clean = clean[clean['otl'] == True]
-clean = clean[clean['age_at_entry'] < 25550]
-most = pd.read_csv('data/most_observ/most_data20_70_lim50.csv')
-ipprs_iforest = pd.read_csv('plots/iForest/ippr_iForest.csv')
-ipprs_iforest = ipprs_iforest.IPPR
+data = pd.read_csv('../data/age_interval/all_data.csv')
+data = data[data['age_at_entry'] > 6570]
 
-ipprs = most['IPPR']
+# clean = pd.read_csv('data/outliers_res/lvl1_IQR_output.csv')
+# clean = clean[clean['otl'] == True]
+# most = pd.read_csv('data/most_observ/most_data20_70_lim50.csv')
+# ipprs_iforest = pd.read_csv('plots/iForest/ippr_iForest.csv')
+# ipprs_iforest = ipprs_iforest.IPPR
 
+# ipprs = most['IPPR']
 # data = data[data['std'] > 0.001]
-print(len(data))
+# print(len(data))
 
-ipprs = most['IPPR'].unique()
-ipprs = np.random.choice(ipprs, size=15)
+# ipprs = most['IPPR'].unique()
+# ipprs = np.random.choice(ipprs, size=15)
 
 # calculating Z-score
 def z_score(df, ippr):
@@ -71,7 +71,7 @@ def zscore_plots(ipprs):
            
 
 
-zscore_plots(ipprs_iforest)
+# zscore_plots(ipprs_iforest)
 
 # -----------------------------------------------------------------------------
 stop = timeit.default_timer()

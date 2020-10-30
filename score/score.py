@@ -34,9 +34,6 @@ def score_appli():
 # score_appli()
 
 
-
-
-
 def calculate_weights(dimensions, method):
     N = len(dimensions)
     
@@ -59,12 +56,16 @@ def calculate_weights(dimensions, method):
     return weights
 
 dim = ['Appli', 'Dim', 'OtlPercentage']
+dim2 = ['Appli1', 'Appli2']
+dim4= ['Appli1', 'Appli2', 'Appli3','Appli4']
+dim5= ['Appli1', 'Appli2', 'Appli3','Appli4','Appli5']
 
-dim_Appli = ['Appli1', 'Appli2', 'Appli3','Appli4']
 
-weights_sr = calculate_weights(dim_Appli, 'sr')
-weights_rs = calculate_weights(dim_Appli, 'rs')
-weights_rr = calculate_weights(dim_Appli, 'rr')
-weights_re = calculate_weights(dim_Appli, 're')
+
+
+weights_sr = calculate_weights(dim5, 'sr')
+weights_rs = calculate_weights(dim5, 'rs')
+weights_rr = calculate_weights(dim5, 'rr')
+weights_re = calculate_weights(dim5, 're')
 
     
