@@ -96,15 +96,17 @@ def windowed_mad(ippr, k):
     df= data[data['IPPR'] == ippr]
     p= df.Poids.values
     t= df.age_at_entry.values
+    a= df.Appli.values
     print(p)
     print(t)
+    print(a)
     for i, w in enumerate(window(p,k)):
         print('{} | windowed list (n={}): {}'.format(i, k, w))
         print('{} | MAD: {}'.format(i, list_mad(w)))
     for i, t in enumerate(window(t, k)):
-        print('{} | windowed list (n={}): {}'.format(i, k, t[4]-t[0]))
+        print('{} | windowed list (n={}): {}'.format(i, k, t[2]-t[0]))
 
-windowed_mad(5418634,5)
+windowed_mad(5418634,3)
 
 
 # iterable = np.arange(10)
