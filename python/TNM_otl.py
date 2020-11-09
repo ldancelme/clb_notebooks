@@ -61,4 +61,4 @@ def fix_last_weird_values(df):
     return df
 
 
-egal = general[general['N'] == '=']
+egal = general[general['N'] == '  °']
