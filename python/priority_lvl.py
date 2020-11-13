@@ -15,7 +15,7 @@ from tqdm import tqdm
 start = timeit.default_timer()
 # -----------------------------------------------------------------------------
 # //// Load file
-data = pd.read_csv('data/age_interval/all_data.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
+data = pd.read_csv('../data/age_interval/all_data.csv', dtype={'Taille' : float, 'Appli_origine' : str, 'mean' : float, 'std' : float, 'sem' : float}, na_values = '')
 
 applis = data.Appli.unique()
 
