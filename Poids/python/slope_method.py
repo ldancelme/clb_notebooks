@@ -28,7 +28,7 @@ ipprs = np.array(ipprs)
 
 systemRandom = random.SystemRandom()
 rint = systemRandom.randint(1,55498)
-rint=23926
+# rint=23926
 
 data = data[data['IPPR'] == ipprs[rint]]
 
@@ -46,13 +46,14 @@ sl_list = []
 cut_off = 0.001
 
 
-if len(x) > 1:    
+if len(x) > 4:    
     for i in range(0, len(x)-1):
         plt.plot(x[i:i+2], y[i:i+2], 'ro-')
         sl = slope(x[i], y[i], x[i+1], y[i+1])
         sl_list.append(sl)
         
         prc_Poids = abs(1-(y[i]/y[i+1]))
+        prc_Poids = abs(1-(np.mean([y[i-2],y[i-1],y[i]])/y[i+1]))
         nb_jours = a[i+1]-a[i]
 
         if prc_Poids > cut_off*nb_jours:
@@ -60,7 +61,7 @@ if len(x) > 1:
             plt.plot(x[i],y[i],marker='o', markeredgecolor = 'white',markerfacecolor='red')
         else:
             otl = 'inl'
-        
+
         print('['+str(i)+'] '+'Nb de jours : ', x[i+1]-x[i])
         print('['+str(i)+'] '+'DeltaP : ', y[i+1]-y[i])
         print('['+str(i)+'] '+'%Poids : ', prc_Poids)
@@ -68,11 +69,7 @@ if len(x) > 1:
         print('['+str(i)+'] '+'Slope : ', abs(sl))
         plt.text(x[i]+(x[i+1]-x[i])/2, y[i]+(y[i+1]-y[i])/2, str(np.round(sl,4)))
         print(otl)
-
-        
-        print('-'*10)
-   
-        
+        print('-'*10)   
 
 plt.show()
 
