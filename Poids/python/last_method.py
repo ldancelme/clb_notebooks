@@ -20,23 +20,16 @@ ipprs = np.array(ipprs)
 
 systemRandom = random.SystemRandom()
 rint = systemRandom.randint(1,31481)
-# rint=23926
 
 data = data[data['IPPR'] == ipprs[rint]]
+# data = data[data['IPPR'] == 9012060]
 
-
-for i in range(0,len(data)-1):
-    z = 0*len(data)
-    data['priority_lvl']= z
-    if data.iloc[i,4] == 'BLO' or 'DOS':
-        data.iloc[i,7] == 1
-    else:
-        data.iloc[i,7] == 2
-
+data = data[data['priority_lvl'] == 1]
 
 x = np.array(data.age_at_entry)
 y = np.array(data.Poids)
 a = np.array(data.age_at_entry)
+appl = np.array(data.priority_lvl)
 
 print(x,y)
 
@@ -48,36 +41,136 @@ ind_6mois = 0.000537
 ind_1mois = 0.0163
 sl_list = []
 
+def mean_x_month(temp, idx, months):
+    period = months*31
+    print('Period :', period)
+    val = {}
+    di = temp.iloc[idx,1]
+    print('age_at_entry :', di)
+    temp = temp.iloc[idx+1:,:]  
+    list_p = []
+    
+    for j in range(len(temp)):
+        # print('temp.iloc[j,1] :', temp.iloc[j,1])
+        # print('di :', di)
+        # print('temp.iloc[j,1] - di :', temp.iloc[j,1] - di)
+        if temp.iloc[j,1] - di <= period :
+            val.update({temp.iloc[j,1]:temp.iloc[j,3]})
+    print(val)
+    m = np.array(list(val.values())).mean()
+    d = np.array(list(val.keys())).mean()
+    p= [d,m]
+    list_p.append(p)
+    return p, list_p
+
+
+
 def outlier_detection(ind_mois):
         durée_passage= a[0]-a[len(data)-1]
-        
+         
         for i in range(0, len(x)-1):
             
-            # while i < 3:
-                plt.plot(x[i:i+2], y[i:i+2], 'ro-')
-                sl = slope(x[i], y[i], x[i+1], y[i+1])
-                sl_list.append(sl)
-                
-                prc_Poids = abs(1-(y[i]/y[i+1]))
-                prc_Poids = abs(1-(np.mean([y[i-2],y[i-1],y[i]])/y[i+1]))
-                nb_jours = a[i+1]-a[i]
-        
-                if prc_Poids > ind_mois*nb_jours:
-                    otl = 'otl'
-                    plt.plot(x[i],y[i],marker='o', markeredgecolor = 'white',markerfacecolor='red')
-                else:
-                    otl = 'inl'
-        
-                print('['+str(i)+'] '+'Nb de jours : ', x[i+1]-x[i])
-                print('['+str(i)+'] '+'DeltaP : ', y[i+1]-y[i])
-                print('['+str(i)+'] '+'%Poids : ', prc_Poids)
-                print('['+str(i)+'] '+'c_off : ', ind_mois*nb_jours)
-                print('['+str(i)+'] '+'Slope : ', abs(sl))
-                plt.text(x[i]+(x[i+1]-x[i])/2, y[i]+(y[i+1]-y[i])/2, str(np.round(sl,4)))
-                print(otl)
-                print('-'*10)
-        plt.text(min(x),max(y)+0.4,'ippr: ' +str(ipprs[rint]))
-                        
-
-outlier_detection(ind_1mois)
+            
+            
+            print('['+str(i)+']'+' outlier_detection() loop index')
+            plt.plot(x[i:i+2], y[i:i+2], 'ro-')
+            sl = slope(x[i], y[i], x[i+1], y[i+1])
+            sl_list.append(sl)
+            
+            p2, list_p2 = mean_x_month(data, i, 6)
+            print(p2)
+            plt.plot(p2[0],p2[1],'bx', markersize=10)
+            # plt.text(p2[0],p2[1]+1,str(i),color='blue',fontsize=15)
+            print('-'*100)
+            
+            prc_Poids = abs(1-(y[i]/y[i+1]))
+            prc_Poids = abs(1-(np.mean([y[i-2],y[i-1],y[i]])/y[i+1]))
+            nb_jours = a[i+1]-a[i]
     
+            if prc_Poids > ind_mois*nb_jours:
+                otl = 'otl'
+                plt.plot(x[i],y[i],marker='o', markeredgecolor = 'white',markerfacecolor='red')
+            else:
+                otl = 'inl'
+                
+            # print('['+str(i)+'] '+'Nb de jours : ', x[i+1]-x[i])
+            # print('['+str(i)+'] '+'DeltaP : ', y[i+1]-y[i])
+            # print('['+str(i)+'] '+'%Poids : ', prc_Poids)
+            # print('['+str(i)+'] '+'c_off : ', ind_mois*nb_jours)
+            # print('['+str(i)+'] '+'Slope : ', abs(sl))
+            # print('['+str(i)+'] '+'Appli : ', appl[i])
+            # plt.text(x[i]+(x[i+1]-x[i])/2, y[i]+(y[i+1]-y[i])/2, str(np.round(sl,4)))
+            # print(otl)
+            # print('-'*10)
+                
+        # plt.text(min(x),max(y)+0.4,'ippr: ' +str(ipprs[rint]))
+        
+def otl_hugo_crochet(months):
+    plt.figure(figsize=[13,8], dpi=1080)
+    if months >= 6:
+        prc = 0.1
+    else:
+        prc = 0.05
+        
+    for i in range(0, len(x)-1):
+        
+        p2, list_p2 = mean_x_month(data, i, months)
+        print(p2)
+        plt.plot(p2[0],p2[1],'bx', markersize=5)
+        
+        if np.isnan(p2).any() == False:
+            plt.plot([x[i],p2[0]], [y[i],p2[1]], 'b-', linewidth=0.5)
+
+        
+        print('['+str(i)+'] '+'-'*100)
+        sl = slope(x[i], y[i], x[i+1], y[i+1])
+        new_sl = slope(x[i], y[i], p2[0], p2[1])
+        
+        print('slope:', abs(sl))
+        print('new_slope:', abs(new_sl))
+        
+        plt.plot(x[i:i+2], y[i:i+2], 'k-', linewidth=0.5)
+        plt.plot(x[i:i+2], y[i:i+2], 'ro', markersize=4)
+        
+                
+        prc_Poids = abs(1-(y[i]/p2[1]))
+        
+        if prc_Poids > prc:
+            otl = 'otl'
+            plt.text(x[i],y[i]+0.1,'otl')
+        else:
+            otl = 'inl'
+            plt.text(x[i],y[i]+0.2,'inl')        
+               
+def otl_pascale_roux(months):
+    
+    if months == 6:
+        prc = 0.1
+    elif months == 1:
+        prc = 0.05
+    
+    plt.figure(figsize=[13,8])
+    for i in range(0, len(x)-1):
+        print('['+str(i)+'] '+'-'*100)
+
+        plt.plot(x[i:i+2], y[i:i+2], 'k-', linewidth=0.5)
+        plt.plot(x[i:i+2], y[i:i+2], 'ro', markersize=4)
+        
+        sl = slope(x[i], y[i], x[i+1], y[i+1])
+        sl_list.append(sl)
+        
+        p2, list_p2 = mean_x_month(data, i, months)
+        print(p2)
+        plt.plot(p2[0],p2[1],'bx', markersize=5)
+        
+        prc_Poids = abs(1-(y[i]/p2[1]))
+         
+        if prc_Poids > prc:
+            otl = 'otl'
+            plt.text(x[i],y[i]+0.1,'otl')
+        else:
+            otl = 'inl'
+            plt.text(x[i],y[i]+0.2,'inl')
+                
+otl_hugo_crochet(3)
+# otl_pascale_roux(6)    
