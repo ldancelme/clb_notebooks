@@ -21,8 +21,8 @@ ipprs = np.array(ipprs)
 systemRandom = random.SystemRandom()
 rint = systemRandom.randint(1,31481)
 
-data = data[data['IPPR'] == ipprs[rint]]
-# data = data[data['IPPR'] == 9012060]
+# data = data[data['IPPR'] == ipprs[rint]]
+data = data[data['IPPR'] == 9012060]
 
 data = data[data['priority_lvl'] == 1]
 
@@ -41,7 +41,7 @@ ind_6mois = 0.000537
 ind_1mois = 0.0163
 sl_list = []
 
-def mean_x_month(temp, idx, months):
+def mean_next_x_months(temp, idx, months):
     period = months*31
     print('Period :', period)
     val = {}
@@ -63,6 +63,24 @@ def mean_x_month(temp, idx, months):
     list_p.append(p)
     return p, list_p
 
+def mean_last_x_months(temp, idx, months):
+    period = months*31
+    print('Period :', period)
+    val = {}
+    di = temp.iloc[idx,1]
+    print('age_at_entry :', di)
+    temp = temp.iloc[:idx-1,:]  
+    list_p = []
+    print("min: ", min(temp.iloc[:,1]))
+    for j in np.arange(2,len(temp)):
+        if min(temp.iloc[:,1]) > di-period:
+            val.update({temp.iloc[j,1]:temp.iloc[j,3]})
+    print(val)
+    m = np.array(list(val.values())).mean()
+    d = np.array(list(val.keys())).mean()
+    p= [d,m]
+    list_p.append(p)
+    return p, list_p
 
 
 def outlier_detection(ind_mois):
@@ -77,7 +95,7 @@ def outlier_detection(ind_mois):
             sl = slope(x[i], y[i], x[i+1], y[i+1])
             sl_list.append(sl)
             
-            p2, list_p2 = mean_x_month(data, i, 6)
+            p2, list_p2 = mean_next_x_months(data, i, 6)
             print(p2)
             plt.plot(p2[0],p2[1],'bx', markersize=10)
             # plt.text(p2[0],p2[1]+1,str(i),color='blue',fontsize=15)
@@ -106,7 +124,7 @@ def outlier_detection(ind_mois):
         # plt.text(min(x),max(y)+0.4,'ippr: ' +str(ipprs[rint]))
         
 def otl_hugo_crochet(months):
-    plt.figure(figsize=[13,8], dpi=1080)
+    plt.figure(figsize=[7,4], dpi=400)
     if months >= 6:
         prc = 0.1
     else:
@@ -114,7 +132,7 @@ def otl_hugo_crochet(months):
         
     for i in range(0, len(x)-1):
         
-        p2, list_p2 = mean_x_month(data, i, months)
+        p2, list_p2 = mean_last_x_months(data, i, months)
         print(p2)
         plt.plot(p2[0],p2[1],'bx', markersize=5)
         
@@ -134,9 +152,10 @@ def otl_hugo_crochet(months):
         
                 
         prc_Poids = abs(1-(y[i]/p2[1]))
-        
+        print('prc_Poids:', prc_Poids)
         if prc_Poids > prc:
             otl = 'otl'
+            print(otl)
             plt.text(x[i],y[i]+0.1,'otl')
         else:
             otl = 'inl'
@@ -159,7 +178,7 @@ def otl_pascale_roux(months):
         sl = slope(x[i], y[i], x[i+1], y[i+1])
         sl_list.append(sl)
         
-        p2, list_p2 = mean_x_month(data, i, months)
+        p2, list_p2 = mean_next_x_months(data, i, months)
         print(p2)
         plt.plot(p2[0],p2[1],'bx', markersize=5)
         
