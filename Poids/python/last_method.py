@@ -14,12 +14,17 @@ import warnings
 warnings. filterwarnings('ignore')
 
 data = pd.read_csv('../../data/clean_poids.csv')
+
+data_otls = pd.read_csv('otls_100_ipprs.csv')
+ipprs_otls = np.array(data_otls.IPPR.unique())
+
 # data = data[data['age_at_entry'] > 7300]
 ipprs = data.IPPR.unique()
 ipprs = np.array(ipprs)
 
-ipprs = random.choices(ipprs, k=3)
-data = data[data['IPPR'].isin(ipprs)]
+ipprs = [x for x in ipprs if x not in ipprs_otls]
+ipprs = random.choices(ipprs, k=100)
+# data = data[data['IPPR'].isin(ipprs)]
 
 # systemRandom = random.SystemRandom()
 # rint = systemRandom.randint(1,31481)
@@ -49,10 +54,10 @@ ind_1mois = 0.0163
 
 def mean_next_x_months(temp, idx, months):
     period = months*31
-    print('Period :', period)
+    # print('Period :', period)
     val = {}
     di = temp.iloc[idx,1]
-    print('age_at_entry :', di)
+    # print('age_at_entry :', di)
     temp = temp.iloc[idx+1:,:]  
     for j in range(len(temp)):
         # print('temp.iloc[j,1] :', temp.iloc[j,1])
@@ -60,7 +65,7 @@ def mean_next_x_months(temp, idx, months):
         # print('temp.iloc[j,1] - di :', temp.iloc[j,1] - di)
         if temp.iloc[j,1] - di <= period :
             val.update({temp.iloc[j,1]:temp.iloc[j,3]})
-    print(val)
+    # print(val)
     m = np.array(list(val.values())).mean()
     d = np.array(list(val.keys())).mean()
     p= [d,m]
@@ -68,21 +73,22 @@ def mean_next_x_months(temp, idx, months):
 
 def mean_last_x_months(temp, idx, months):
     period = months*31
-    print('Period :', period)
+    # print('Period :', period)
     val = {}
     di = temp.iloc[idx,1]
-    print('age_at_entry :', di)
+    # print('age_at_entry :', di)
     new_temp = temp.iloc[:idx-1,:]
     for j in range(len(new_temp)):
         if di - period > min(temp.iloc[:,1]):
             if new_temp.iloc[j,1] >= di-period:
                 val.update({new_temp.iloc[j,1]:new_temp.iloc[j,3]})
-    print('val:', val)
+    # print('val:', val)
     m = np.array(list(val.values())).mean()
     d = np.array(list(val.keys())).mean()
     p= [d,m]
     return p
 
+otls = []
 zeros = []
 zeros = np.zeros(len(data))
 data['otl'] = zeros
@@ -93,8 +99,7 @@ def otl_hugo_crochet(ipprs, months):
         x = np.array(d.age_at_entry)
         y = np.array(d.Poids)
         a = np.array(d.age_at_entry)
-        for i in range(0, len(x)-1):
-            
+        for i in range(0, len(x)):
             pl = mean_last_x_months(data, i, months)
             pn = mean_next_x_months(data, i, months)
             
@@ -106,7 +111,9 @@ def otl_hugo_crochet(ipprs, months):
             else:
                 otl = False
             
-            data.iloc[i,9] = otl
+            otls.append(otl)
+            print(len(otls))
+
 otl_hugo_crochet(ipprs, 1)
     
 def otl_hugo_crochet(months):
