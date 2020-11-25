@@ -13,44 +13,21 @@ from tqdm import tqdm
 import warnings
 warnings. filterwarnings('ignore')
 
+txt_out = open("output2.txt","a") 
+
 data = pd.read_csv('../../data/clean_poids.csv')
 
 data_otls = pd.read_csv('otls_100_ipprs.csv')
 ipprs_otls = np.array(data_otls.IPPR.unique())
 
-# data = data[data['age_at_entry'] > 7300]
+data = data[data['age_at_entry'] > 7300]
 ipprs = data.IPPR.unique()
-ipprs = np.array(ipprs)
+# ipprs = np.array(ipprs)
 
-ipprs = [x for x in ipprs if x not in ipprs_otls]
-ipprs = random.choices(ipprs, k=100)
+# ipprs = [x for x in ipprs if x not in ipprs_otls]
+# ipprs = random.choices(ipprs, k=5)
 # data = data[data['IPPR'].isin(ipprs)]
 
-# systemRandom = random.SystemRandom()
-# rint = systemRandom.randint(1,31481)
-
-# test = pd.read_csv('test_poids.csv')
-# test2 = pd.read_csv('test_poids2.csv')
-# test3 = pd.read_csv('test_poids3.csv')
-# data = test3
-
-# data = data[data['IPPR'] == ipprs[rint]]
-# data = data[data['IPPR'] == 9012060]
-# data = data[data['IPPR'] == 53180334]
-# data = data[data['priority_lvl'] == 1]
-
-# x = np.array(data.age_at_entry)
-# y = np.array(data.Poids)
-# a = np.array(data.age_at_entry)
-# appl = np.array(data.priority_lvl)
-
-
-def slope(x1, y1, x2, y2):
-    m = (y2-y1)/(x2-x1)
-    return m
-
-ind_6mois = 0.000537
-ind_1mois = 0.0163
 
 def mean_next_x_months(temp, idx, months):
     period = months*31
@@ -58,7 +35,7 @@ def mean_next_x_months(temp, idx, months):
     val = {}
     di = temp.iloc[idx,1]
     # print('age_at_entry :', di)
-    temp = temp.iloc[idx+1:,:]  
+    temp = temp.iloc[idx+1:,:]
     for j in range(len(temp)):
         # print('temp.iloc[j,1] :', temp.iloc[j,1])
         # print('di :', di)
@@ -66,6 +43,8 @@ def mean_next_x_months(temp, idx, months):
         if temp.iloc[j,1] - di <= period :
             val.update({temp.iloc[j,1]:temp.iloc[j,3]})
     # print(val)
+    txt_out.write('\t\t///// val : {}\n'.format(val))
+    
     m = np.array(list(val.values())).mean()
     d = np.array(list(val.keys())).mean()
     p= [d,m]
@@ -80,149 +59,84 @@ def mean_last_x_months(temp, idx, months):
     new_temp = temp.iloc[:idx-1,:]
     for j in range(len(new_temp)):
         if di - period > min(temp.iloc[:,1]):
-            if new_temp.iloc[j,1] >= di-period:
+           if new_temp.iloc[j,1] >= di-period:
                 val.update({new_temp.iloc[j,1]:new_temp.iloc[j,3]})
     # print('val:', val)
+    txt_out.write('\t\t///// val : {}\n'.format(val))
     m = np.array(list(val.values())).mean()
     d = np.array(list(val.keys())).mean()
     p= [d,m]
     return p
 
 otls = []
-zeros = []
-zeros = np.zeros(len(data))
-data['otl'] = zeros
 def otl_hugo_crochet(ipprs, months):
     prc  = 0.1
-    for ippr in tqdm(ipprs):
+    for idx, ippr in enumerate(ipprs):
+        txt_out.write('['+str(idx)+']'+'['+str(ippr)+'] '+'-'*90+'\n')
         d = data[data['IPPR'] == ippr]
         x = np.array(d.age_at_entry)
         y = np.array(d.Poids)
         a = np.array(d.age_at_entry)
+
+        txt_out.write('\t age_at_entry : {}\n'.format(x))
+        txt_out.write('\t Poids : {}\n'.format(y))
         for i in range(0, len(x)):
+            txt_out.write('\t['+str(i)+']' + '-'*50+'\n')
+            
             pl = mean_last_x_months(data, i, months)
             pn = mean_next_x_months(data, i, months)
             
+            
+            txt_out.write('\t\t/////Méthode Calcul moyenne sur le dernier mois :\n\t\tCoordonnées Moy Dernier Mois: {}\n'.format(pl))
+            txt_out.write('\t\t/////Méthode Calcul moyenne sur le prochain mois :\n\t\tCoordonnées Moy Prochain Mois: {}\n'.format(pn))
+                        
             prc_Poids_pl = abs(1-(y[i]/pl[1]))
             prc_Poids_pn = abs(1-(y[i]/pn[1]))
             
-            if prc_Poids_pl > prc and prc_Poids_pn > prc:
+            txt_out.write('\tprc_Poids_pl >= prc ? {} >= {}\n'.format(prc_Poids_pl, prc))
+            txt_out.write('\tprc_Poids_pn >= prc ? {} >= {}\n'.format(prc_Poids_pn, prc))
+            
+            if prc_Poids_pl >= prc or prc_Poids_pn >= prc:
                 otl = True
             else:
                 otl = False
-            
+            txt_out.write('\totls? {}\n'.format(otl))
             otls.append(otl)
-            print(len(otls))
 
-otl_hugo_crochet(ipprs, 1)
-    
-def otl_hugo_crochet(months):
-    plt.figure(figsize=[11,6])
-    # if months >= 6:
-    #     prc = 0.1
-    # else:
-    #     prc = 0.05
-    prc = 0.1
-    for i in range(0, len(x)-1):
-        print('['+str(i)+'] '+'-'*90)
-        sl = slope(x[i], y[i], x[i+1], y[i+1])
-        print('slope:', abs(sl))
-        
-        pl = mean_last_x_months(data, i, months)
-        pn = mean_next_x_months(data, i, months)
-        
-        print('pl:',pl)
-        print('pn:',pn)
-        
-        plt.plot(pn[0],pn[1],'bx', markersize=5)
-        plt.plot(pl[0],pl[1],'rx', markersize=5)
-        plt.text(pn[0],pn[1]+0.08, i, fontsize=7, fontstyle='oblique', c='b')
-        plt.text(pl[0],pl[1]+0.08, i, fontsize=7, fontstyle='oblique', c='r')
-        
-        plt.plot(x[i:i+2], y[i:i+2], 'kD-', markersize=2, linewidth=0.5)
-        prc_Poids_pl = abs(1-(y[i]/pl[1]))
-        prc_Poids_pn = abs(1-(y[i]/pn[1]))
-        print('prc_Poids_pl:', prc_Poids_pl)
-        print('prc_Poids_pn:', prc_Poids_pn)
-        if prc_Poids_pl > prc and prc_Poids_pn > prc:
-            otl = 'otl'
-            o = True
-            print(otl)
-            plt.text(x[i],y[i]+0.4,'otl')
-        else:
-            o = False
-            otl = 'inl'
-            plt.text(x[i],y[i]-0.4,'inl')     
-        
-    plt.savefig('otl5_02.png',figsize=[11,6], dpi=800)
-            
-def outlier_detection(ind_mois):
-    durée_passage= a[0]-a[len(data)-1]
-     
-    for i in range(0, len(x)-1):
-        
-        
-        
-        print('['+str(i)+']'+' outlier_detection() loop index')
-        plt.plot(x[i:i+2], y[i:i+2], 'ro-')
-        sl = slope(x[i], y[i], x[i+1], y[i+1])
-        
-        pl, list_pl = mean_next_x_months(data, i, 6)
-        print(pl)
-        plt.plot(pl[0],pl[1],'bx', markersize=10)
-        # plt.text(pl[0],pl[1]+1,str(i),color='blue',fontsize=15)
-        print('-'*100)
-        
-        prc_Poids = abs(1-(y[i]/y[i+1]))
-        prc_Poids = abs(1-(np.mean([y[i-2],y[i-1],y[i]])/y[i+1]))
-        nb_jours = a[i+1]-a[i]
 
-        if prc_Poids > ind_mois*nb_jours:
-            otl = 'otl'
-            plt.plot(x[i],y[i],marker='o', markeredgecolor = 'white',markerfacecolor='red')
-        else:
-            otl = 'inl'
-            
-        # print('['+str(i)+'] '+'Nb de jours : ', x[i+1]-x[i])
-        # print('['+str(i)+'] '+'DeltaP : ', y[i+1]-y[i])
-        # print('['+str(i)+'] '+'%Poids : ', prc_Poids)
-        # print('['+str(i)+'] '+'c_off : ', ind_mois*nb_jours)
-        # print('['+str(i)+'] '+'Slope : ', abs(sl))
-        # print('['+str(i)+'] '+'Appli : ', appl[i])
-        # plt.text(x[i]+(x[i+1]-x[i])/2, y[i]+(y[i+1]-y[i])/2, str(np.round(sl,4)))
-        # print(otl)
-        # print('-'*10)
-            
-    # plt.text(min(x),max(y)+0.4,'ippr: ' +str(ipprs[rint]))
-        
-def otl_pascale_roux(months):
-    
-    if months == 6:
-        prc = 0.01
-    elif months == 1:
-        prc = 0.05
-    
-    plt.figure(figsize=[13,8])
-    for i in range(0, len(x)-1):
-        print('['+str(i)+'] '+'-'*100)
 
-        plt.plot(x[i:i+2], y[i:i+2], 'k-', linewidth=0.5)
-        plt.plot(x[i:i+2], y[i:i+2], 'ro', markersize=4)
+ipprs= [72193145]
+# otl_hugo_crochet(ipprs, 1)
+
+def test_niveau_1(d, ippr):
+    apps = d.iloc[:,8]
+    
+    ones = apps[apps==1]
+    ones_idx = apps[apps==1].index
+    
+    lvl = ippr
+    
+
+def otl_pascale_roux(ipprs):
+    prc  = 0.1
+    for idx, ippr in enumerate(ipprs):
+        print('['+str(idx)+']'+'['+str(ippr)+'] '+'-'*90+'\n')
         
-        sl = slope(x[i], y[i], x[i+1], y[i+1])
+        d = data[data['IPPR'] == ippr]
+        d = data.set_index([pd.Index(range(len(d)))])
         
-        pl, list_pl = mean_next_x_months(data, i, months)
-        print(pl)
-        plt.plot(pl[0],pl[1],'bx', markersize=5)
+        niv1 = d[d['priority_lvl'] == 1]
+        for i in range(0, len(d)):
+            lvl = d.iloc[i,8]
+            print('Index :', i)
+            print('lvl :', lvl)
+
+otl_pascale_roux(ipprs)
+
         
-        prc_Poids = abs(1-(y[i]/pl[1]))
-         
-        if prc_Poids > prc:
-            otl = 'otl'
-            plt.text(x[i],y[i]+0.1,'otl')
-        # else:
-        #     otl = 'inl'
-        #     plt.text(x[i],y[i]+0.2,'inl')
-                
-# otl_hugo_crochet(1)
-# otl_pascale_roux(6)    
+# data['otls'] = otls
+# print(len(data_otls))
+# print(len(data))
+# data_otls = data_otls.append(data, ignore_index=True)
+# print('Nouveau df : {} lignes'.format(len(data_otls)))
+# print('Nombre de patients : {}'.format(len(data_otls.IPPR.unique())))

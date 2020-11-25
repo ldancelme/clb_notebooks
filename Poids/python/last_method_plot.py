@@ -9,13 +9,58 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
+all_data = pd.read_csv('../../data/clean_poids.csv')
 data = pd.read_csv('otls_100_ipprs.csv')
+
+# data = data[data['count'] > 12]
+all_data = all_data[all_data['Poids']> 200]
 ipprs= np.array(data.IPPR.unique())
 
-len(data[data['otls'] == True])
+# =============================================================================
+#                                   Stats
+# =============================================================================
 
-ipprs = random.choices(ipprs, k=5)
-ip = random.choices(ipprs, k=1)
+prc_otls = len(data[data['otls'] == False])/len(data)
+
+ipprs_patients_otls = []
+def patients_avec_otls():
+    for ippr in data.IPPR.unique():
+        temp = data[data['IPPR'] == ippr]
+        otls = np.array(temp.otls)
+        if not all(otls):
+            ipprs_patients_otls.append(ippr)
+    return ipprs_patients_otls
+ipprs_patients_otls = patients_avec_otls()
+
+prc_patients_otls = len(ipprs_patients_otls)/len(ipprs)
+
+def moyenne_otls_par_patient():
+    moy = []
+    for ippr in ipprs_patients_otls:
+        temp = data[data['IPPR'] == ippr]
+        temp = data[data['otls']==False]
+        l    = len(temp)
+        moy.append(l)
+    return np.mean(moy)
+moy = moyenne_otls_par_patient()
+
+patients_otls = data[data['IPPR'].isin(ipprs_patients_otls)]
+patients_otls.describe()
+
+    
+t=[]
+pt = patients_otls.IPPR.unique()
+for i in pt:
+    temp= patients_otls[patients_otls['IPPR']==i]
+    temp = temp[temp['otls']==False]
+    a = len(temp)
+    t.append(a)
+
+
+# =============================================================================
+#                                   Plotting                                              
+# =============================================================================
+
 
 def plot_otls(ippr):
     print(ippr)
@@ -25,8 +70,25 @@ def plot_otls(ippr):
     plt.plot(dplot.age_at_entry, dplot.Poids, 'k--', linewidth=0.5)
     for name, group in groups:
         plt.plot(group["age_at_entry"], group["Poids"], marker='o', linestyle="", label=name)
-    plt.title('IPPR: {}'.format(ippr))
+    plt.title('IPPR: {}'.format(ippr), fontsize=14)
     plt.legend()
+    plt.xlabel('Âge (jours)', fontsize=14)
+    plt.ylabel('Poids (kg)', fontsize=14)
     
+    
+    plt.figure(figsize=[11,6])
+    plt.plot(dplot.age_at_entry, dplot.Poids, 'k--', linewidth=0.5)
+    plt.plot(dplot.age_at_entry, dplot.Poids, marker='o', linestyle="", alpha=0.8, markersize=2)
+    x = np.array(dplot.age_at_entry)
+    y = np.array(dplot.Poids)
+    app = np.array(dplot.Appli)
+    print(app)
+    for idx, val in enumerate(app):
+        plt.text(x[idx], y[idx] , val)
+
+
+ipprs = random.choices(ipprs_patients_otls, k=3)
 for i in ipprs:
     plot_otls(i)
+
+    

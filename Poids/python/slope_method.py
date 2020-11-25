@@ -119,9 +119,7 @@ def outlier_detection(ind_mois):
         durée_passage= a[0]-a[len(data)-1]
          
         for i in range(0, len(x)-1):
-            
-            
-            
+                        
             print('['+str(i)+']'+' outlier_detection() loop index')
             plt.plot(x[i:i+2], y[i:i+2], 'ro-')
             sl = slope(x[i], y[i], x[i+1], y[i+1])
