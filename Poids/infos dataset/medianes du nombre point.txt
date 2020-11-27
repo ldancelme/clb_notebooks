@@ -1,0 +1,3 @@
+Tous les Patients : médiane = 9  kg
+Patients < 20 ans : médiane = 21 kg
+Patients > 20 ans : médiane = 8  kg

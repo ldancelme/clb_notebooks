@@ -1,0 +1,42 @@
+﻿Requête SQL
+select count(TPT), TPT, TPT_VAL from ANA130 group by TPT_VAL, TPT
+
+COUNT;TPT;TPT_VAL
+0;NULL;NULL
+4;pT;1         
+4;pT;2         
+4;pT;3         
+1;pT;3a        
+1;pT;3b        
+1;pT;3c        
+4;pT;4         
+1;pT;4a        
+1;pT;4b        
+1;pT;is        
+48;T ;1         
+11;T ;1a        
+1;T ;1a1       
+1;T ;1a2       
+11;T ;1b        
+1;T ;1b1       
+1;T ;1b2       
+5;T ;1c        
+1;T ;1mic      
+48;T ;2         
+8;T ;2a        
+8;T ;2b        
+2;T ;2c        
+45;T ;3         
+7;T ;3a        
+7;T ;3b        
+1;T ;3c        
+41;T ;4         
+3;T ;4a        
+3;T ;4b        
+1;T ;4c        
+1;T ;4d        
+4;T ;a         
+8;T ;is        
+1;T ;is pd     
+1;T ;is pu     
+1;T ;X         

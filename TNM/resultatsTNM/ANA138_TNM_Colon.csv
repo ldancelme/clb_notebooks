@@ -1,0 +1,363 @@
+﻿Description fiche : "Compte rendu structuré ACP colon"
+
+Requete SQL
+select count(*), HISTO, P, T, N, M from ANA138 group by HISTO, P, T, N, M
+
+COUNT(*);HISTO;P;T;N;M
+1;.;2;1;1;1
+1;adénome tubuleux en dysplasie de bas grade et très focalement de haut grade;1;1;1;1
+1;adénome tubulovilleux en dysplasie de bas grade;1;1;1;1
+1;3 polypes adéno-villeux avec dysplasie de bas grade et de haut grade.;2;1;1;3
+1;après mucosectomie, absence de reliquat lésionnel;1;1;1;3
+1;absence de lésion tumorale vivave;2;1;1;4
+1;après traitement, absence de lésion tumorale vivace résiduelle;2;1;1;4
+1;pas de tumeur retrouvée;2;1;1;5
+1;adénome tubulovilleux avec dysplasie de haut grade (catégorie 4-1 de la classification de Vienne modifiée);2;1;4;4
+1;dysplasie de haut grade (carcinome in situ) sur adénome;1;2;1;1
+1;adénocarcinome lieberkühnien bien différencié de 6 mm de grand axe par transformation d'un volumineux adénome villeux en dysplasie majoritairement de haut grade de 33 mm de grand axe localisé à l'angle gauche..;1;2;1;3
+1;Adénocarcinome lieberkuhnien bien différencié qui infiltre la sous-muqueuse;1;3;1;1
+1;cicatrice de polypectomie sans reliquat tumoral ou adénomateux;1;3;1;1
+1;adénocarcinome lieberkühien bien différencié;1;3;1;3
+1;adenocarcinome lieberkuhnien bien à moyennement différencié;1;3;1;3
+1;adenocarcinome lieberkühnien moyennement différencié;1;3;1;3
+1;adénocarcinome de type intestinal (NOS) bien à moyennement différencié;1;3;1;4
+1;adénocarcinome lieberkuhnien bien différencié;2;3;1;4
+1;adénocarcinome lieberkühnien bien différencié;1;3;1;4
+1;adénocarcinome lieberkuhnien moyennement différencié développé sur un adénome;1;3;1;4
+1;cicatrice de polypectomie avec minime reliquat adénomateux avec dysplasie de haut grade;2;3;1;4
+1;adénocarcinome Lieberkühnien moyennement différencié.;1;3;4;4
+1;adénocarcinome lierberkuhnien moyennement différencié;1;3;4;4
+1;adénocarcinome lieberkühnien bien différencié;2;3;6;3
+1;2 tumeurs: Adénocarcinome lieberkühnien moyennement différencié et un carcinome colloïde;1;4;1;1
+1;adénocarcinome colloide;2;4;1;1
+1;adénocarcinome de type intestinal bien différencié avec contingent mucineux de 10%;1;4;1;1
+1;adénocarcinome liberkhunien moyennement différencié;1;4;1;1
+1;adénocarcinome liberkühnien bien différencié développé sur adénome tubulo-villeux en dysplasie de haut grade;2;4;1;1
+1;adénocarcinome lieberkuhnien bien différencié;1;4;1;1
+1;adénocarcinome lieberkühnien bien différencié.;1;4;1;1
+1;adénocarcinome lieberkuhnien moyennement différencié;1;4;1;1
+2;adénocarcinome Lieberkühnien moyennement différencié;1;4;1;1
+1;adénocarcinome de type intestinal bien à moyennement différencié;1;4;1;2
+1;adénocarcinome lieberkühnien bien différencié;2;4;1;2
+1;adénocarcinome lieberkühnien moyennement différencié;2;4;1;2
+1;adénocarcinome lieberkühnien moyennement différencié.;2;4;1;2
+1;2 adenocarcinomes lieberkuhniens infiltrants par transformation d'adénomes tubulo-villeux en dysplasie de haut grade + 1 adenome tubulo-villeux en dysplasie de haut grade confinant à de l'adenocarcinome intra-muqueux..;1;4;1;3
+1;Adénocarcinome leiberkühnien peu différencié;1;4;1;3
+1;adénocarcinome lieberkhunien bien différencié;2;4;1;3
+1;Adénocarcinome lieberkhunien moyennement différencié;1;4;1;3
+1;Adénocarcinome lieberkuhnien bien différencié;1;4;1;3
+1;adénocarcinome lieberkühnien bien différencié;1;4;1;3
+1;adénocarcinome lieberkühnien bien différencié développé sur un volumineux adénome tubulo-villeux;1;4;1;3
+1;adenocarcinome lieberkuhnien bien diiérencié (contingent mucineux estimé à moins de 30%);1;4;1;3
+1;adénocarcinome lieberkuhnien infiltrant bien différencié;1;4;1;3
+1;adénocarcinome lieberkühnien moyennement à peu différencié;1;4;1;3
+2;adénocarcinome lieberkuhnien moyennement différencié;1;4;1;3
+1;adénocarcinome lieberkuhnien moyennement différencié;2;4;1;3
+2;adénocarcinome lieberkühnien moyennement différencié;1;4;1;3
+1;adénocarcinome lieberkühnien moyennement différencié;2;4;1;3
+1;adénocarcinome lieberkühnien moyennement différencié avec contingent peu différencié (10% environ de la surface tumorale) et contingent colloïde/ mucineux (à 20% environ).;1;4;1;3
+1;adénocarcinome peu différencié avec contingent colloïde;1;4;1;3
+1;ADK lieberkuhnien bien différencié;1;4;1;3
+1;adénocarcinome bien différencié;1;4;1;4
+1;adénocarcinome de type intestinal bien à moyennement différencié;1;4;1;4
+1;adénocarcinome de type intestinal moyennement à peu différencié;1;4;1;4
+1;adenocarcinome lieberkhunien peu différencié;1;4;1;4
+1;adénocarcinome lieberkuhnien bien différencié;1;4;1;4
+1;adénocarcinome lieberkuhnien moyennement différencié développé sur un adénome tubuleux avec dysplasie de haut grade étendu sur 65 mm sur le versant colique de la valvule de Bauhin;1;4;1;4
+1;adénocarcinome primitif moyennement à peu différencié;1;4;2;1
+1;tumeur neuroendocrine bien différenciée de grade histologique G1;1;4;3;3
+1;adénocarcinome lierberkuhnien moyennement différencié;2;4;5;2
+1;adénocarcinome lieberkuhnien bien différencié;1;4;5;4
+1;adénocarcinome lieberkuhnien moyennement différencié;1;4;5;4
+1;adénocarcinome lierberkuhnien moyennement différencié;1;4;5;4
+1;adénocarcinome lieberkühnien bien différencié.;1;4;6;4
+1;adénocarcinome lieberkühnien moyennement différencié;1;4;6;4
+1;carcinome mixte avec contingent neuro-endocrine à grandes cellules (environ 35%) et contigent lieberkuhnien bien différencié (environ 65 %);1;4;6;4
+1;adénocarcinome peu différencié avec des secteurs en bague à chaton et des secteurs colloïdes;1;4;6;5
+1;adénocarcinome moyennement différenciée;2;4;8;2
+1;adenocarcinome lieberkuhnien moyennement différencié;2;4;8;4
+1;adénocarcinome lieberkuhnien bien différencié développé sur un adénome tubulo-villeux de haut grade dégénéré.;2;4;8;5
+1;adénocarcinome de type intestinal (NOS) bien à moyennement différencié;1;5;1;1
+1;adénocarcinome de type intestinal (NOS) bien différencié;1;5;1;1
+1;adénocarcinome de type intestinal bien différencié avec contingent mucineux de 30%;1;5;1;1
+1;adénocarcinome lieberkhünien bien à moyennement différencié;1;5;1;1
+2;adénocarcinome lieberkhunien moyennement différencié;1;5;1;1
+1;adénocarcinome lieberkuhnien  moyennement différencié;1;5;1;1
+2;adénocarcinome lieberkuhnien bien à moyennement différencié;1;5;1;1
+2;adénocarcinome lieberkühnien bien différencié;1;5;1;1
+1;adénocarcinome lieberkühnien bien différencié pour la tumeur principale;1;5;1;1
+1;Adénocarcinome lieberkuhnien moyennement différencié;1;5;1;1
+1;adénocarcinome lieberkuhnien moyennement différencié;2;5;1;1
+4;adénocarcinome lieberkühnien moyennement différencié;1;5;1;1
+1;adénocarcinome lieberkuhnien moyennement différencié avec contingent colloïde;1;5;1;1
+1;adénocarcinome lieberkühnien moyennement différencié par transformation d un polype adénomateux;1;5;1;1
+1;adénocarcinome lieberkuhnien peu différencié;1;5;1;1
+1;adénocarcinome liebrkünien bien à moyennement différencié;1;5;1;1
+1;adénocarcinome mucineux;1;5;1;1
+1;lieberkuhnien;1;5;1;1
+1;moyennement différencié;1;5;1;1
+1;adénocarcinome lieberkuhnien bien à moyennement différencié;1;5;1;2
+1;Adénocarcinome lieberkuhnien bien différencié;2;5;1;2
+1;Adénocarcinome lieberkuhnien moyennement différencié;2;5;1;2
+1;adénocarcinome lieberkühnien moyennement différencié;1;5;1;2
+1;adénocarcinome lieberkühnien moyennement différencié avec un contingent de carcinome colloïde prédominant.;2;5;1;2
+1;adénocarcinome lieberkühnien moyennement différencié.;2;5;1;2
+1;adénocarcinome mucineux (contingent lieberkühnien minoritaire de 10%);1;5;1;2
+1;Adénocarcinome bien différencié;1;5;1;3
+1;adénocarcinome colloïde;1;5;1;3
+1;adenocarcinome colloïde (60% de la surface tumorale);1;5;1;3
+1;adénocarcinome de type intestinal bien différencié;1;5;1;3
+1;adénocarcinome infiltrant peu différencié;2;5;1;3
+1;adénocarcinome leiberkühnien bien différencié avec un contingent de carcinome colloïde;1;5;1;3
+1;adénocarcinome liberkhunien bien à moyennement différencié;1;5;1;3
+1;adénocarcinome liberkhunien bien à moyennement différencié avec contigent mucineux (40%);1;5;1;3
+3;adénocarcinome liberkhunien moyennement différencié;1;5;1;3
+1;adénocarcinome liberkhunien moyennement différencié;2;5;1;3
+1;adénocarcinome liberkhunien moyennement différencié avec contingent colloïde minoritaire;1;5;1;3
+1;adénocarcinome liberkühnien moyennement à peu différencié;1;5;1;3
+1;adénocarcinome lieberkhunien bien différencié;1;5;1;3
+3;adénocarcinome lieberkhunien moyennement différencié;1;5;1;3
+1;adénocarcinome lieberkhunien moyennement différencié avec flexion colloïde (10%);1;5;1;3
+1;adénocarcinome lieberkhunien moyennement différentié;1;5;1;3
+1;adénocarcinome lieberkhunien peu différencié;1;5;1;3
+1;adénocarcinome lieberkühnien;1;5;1;3
+1;adénocarcinome lieberkuhnien (NOS) bien à moyennement différencié (OMS 2019),avec contingent mucineux, de type alvéolaire (20%),;1;5;1;3
+1;adénocarcinome lieberkühnien assez bien différencié avec contingent moyennement à peu différencié;1;5;1;3
+1;adénocarcinome lieberkühnien assez bien différencié circonferentiel;1;5;1;3
+1;adénocarcinome lieberkühnien bien différencié;1;5;1;3
+2;adénocarcinome lieberkühnien bien différencié;2;5;1;3
+1;adénocarcinome lieberkühnien bien différencié à flexion colloïde.;1;5;1;3
+1;adénocarcinome lieberkühnien bien différencié avec régression colloïde partielle développé sur adénome villeux en dysplasie de bas grade avec aspects évoquant focalement un adénome festonné.;2;5;1;3
+1;Adénocarcinome lieberkuhnien infiltrant bien différencié;1;5;1;3
+2;Adénocarcinome lieberkuhnien moyennement différencié;1;5;1;3
+1;adénocarcinome lieberkuhnien moyennement différencié;2;5;1;3
+1;Adenocarcinome lieberkühnien moyennement différencié;1;5;1;3
+3;Adénocarcinome lieberkühnien moyennement différencié;1;5;1;3
+1;adénocarcinome lieberkühnien moyennement différencié;2;5;1;3
+1;adénocarcinome Lieberkühnien moyennement différencié avec composante colloïde ou mucineuse de 50 à 60 %;1;5;1;3
+1;adénocarcinome lieberkühnien moyennement différencié.;1;5;1;3
+1;adénocarcinome lieberkühnien moyennement différencié.;3;5;1;3
+1;adénocarcinome moyennement différencié;1;5;1;3
+1;adénocarcinome moyennement différencié avec regression colloïde partielle;2;5;1;3
+1;adenocarcinome moyennement différencié et focalement peu différencié (<10%) avec images de "budding" et avec contingent mucineux (colloide-muqueux) estimé à 40% de la surface tumorale totale.;1;5;1;3
+1;adénocarcinome peu différencié;2;5;1;3
+1;adénocarcinome variant festonné avec contingent mucineux profond associé (30 à 40% de la surface tumorale);1;5;1;3
+1;Carcinome neuroendocrine à grandes cellules (OMS 2010) de grade histologique G3 (index mitotique > 50/10 HPF, Ki67 = 80%).;1;5;1;3
+1;adénocarcinome appendiculaire à cellules caliciformes de grade intermédiaire;1;5;1;4
+1;adénocarcinome bien différencié;1;5;1;4
+1;adénocarcinome de type intestinal bien différencié avec contingent mucineux (colloïde);1;5;1;4
+1;adénocarcinome lieberkhunien bien différencié;1;5;1;4
+1;adenocarcinome lieberkhunien moyennement différencié;1;5;1;4
+2;adénocarcinome lieberkhunien moyennement différencié;1;5;1;4
+1;Adénocarcinome lieberkuhnien bien à moyennement différencié;1;5;1;4
+2;adénocarcinome lieberkuhnien bien différencié;1;5;1;4
+1;adénocarcinome lieberkühnien bien différencié;1;5;1;4
+1;adénocarcinome lieberkuhnien bien différencié avec contingent colloïde estimé à 10%;1;5;1;4
+1;adénocarcinome lieberkühnien bien différencié bifocal;3;5;1;4
+1;adenocarcinome lieberkuhnien moyennement différencié;1;5;1;4
+3;adénocarcinome lieberkuhnien moyennement différencié;1;5;1;4
+1;adénocarcinome lieberkuhnien moyennement différencié;2;5;1;4
+1;adénocarcinome lieberkühnien moyennement différencié;2;5;1;4
+1;Adénocarcinome lieberkühnien moyennement différencié avec un contingent colloïde supérieur à 70% correspondant donc à un adénocarcinome mucineux.;1;5;1;4
+1;adénocarcinome lieberkühnien moyennement différencié et carcinome colloïde;1;5;1;4
+1;adénocarcinome lieberkuhnien peu différencié avec contingent à cellules en bague à châton;1;5;1;4
+1;adénocarcinome lieberkuhnien vivace assez bien différencié;1;5;1;4
+1;adénocarcinome lierberkhunien bien différencié;1;5;1;4
+1;adénocarcinome lierberkühnien bien différencié;1;5;1;4
+1;adénocarcinome mucineux;1;5;1;4
+1;adénocarcinome mucineux (60%) et ailleurs de type lieberkühnien moyennement différencié;1;5;1;4
+1;adénocarcinome mucineux / colloide-muqueux;1;5;1;4
+1;tumeur du sigmoide : adénocarcinome lieberkühnien moyennement différencié;2;5;1;4
+1;Adénocarcinome de type liberkühniuen moyennement différencié;2;5;1;5
+1;adénocarcinome liberkühnien moyennement différencié;2;5;1;5
+1;adénocarcinome lieberkhunien moyennement différencié;1;5;1;5
+1;Adénocarcinome lieberkuhnien moyennement différencié;2;5;1;5
+1;adénocarcinome lieberkühnien moyennement différencié;2;5;1;5
+1;adénocarcinome lieberkühnien moyennement différencié avec carcinome colloïde;2;5;1;6
+2;adénocarcinome lieberkühnien moyennement différencié;1;5;2;1
+1;adénocarcinome lieberkühnien moyennement différencié;2;5;2;1
+1;adénocarcinome moyennement différencié.;1;5;2;1
+1;adénocarcinome lieberkühnien moyennement différencié;1;5;2;2
+3;adénocarcinome lieberkühnien moyennement différencié;2;5;2;2
+1;adénocarcinome lieberkuhnien moyennement différencié non modifié par la thérapeutique (reliquat tumoral/surface remaniée : 90%);1;5;2;2
+1;adénocarcinome liberkühnien moyennement différencié avec contingent colloïde estimé à 30% de la surface tumorale.;1;5;2;3
+3;Adénocarcinome lieberkühnien moyennement différencié;1;5;2;3
+1;adénocarcinome lieberkühnien moyennement différencié avec un contingent colloïde de 30 %.;1;5;2;3
+1;carcinome colloïde;1;5;2;3
+2;adénocarcinome lieberkühnien bien différencié;1;5;2;4
+1;adenocarcinome peu différencié à cellules indépendantes;1;5;2;4
+2;adénocarcinome lieberkühnien moyennement différencié;1;5;3;1
+1;adénocarcinome lieberkühnien assez bien différencié;2;5;3;2
+1;adénocarcinome lieberkühnien bien différencié;2;5;3;2
+1;adénocarcinome lieberkühnien moyennement différencié;2;5;3;2
+1;adénocarcinome lieberkühnien moyennement différencié;4;5;3;2
+1;adénocarcinome lieberkühnien moyennement différencié avec régression colloïde partielle;4;5;3;2
+1;adénocarcinome lieberkühnien moyennement différencié.;2;5;3;2
+1;adénocarcinome lieberkhunien;1;5;3;3
+1;Adénocarcinome lieberkühnien moyennement différencié;2;5;3;3
+1;adénocarcinome mucineux;1;5;3;3
+1;adénocarcinome lieberkühnien bien différencié;1;5;3;4
+1;adénocarcinome lieberkhunien moyennement différencié;2;5;4;4
+1;adénocarcinome lieberkhunien;1;5;5;1
+1;adénocarcinome lieberkuhnien moyennement différencié;2;5;5;1
+1;adénocarcinome lieberkühnien moyennement différencié avec contingent colloïde (20%);1;5;5;1
+1;Adénocarcinome de type lieberkühnien moyennement différencié mesurant 23 mm de grand axe, avec reliquat vivace estimé à 40% de la surface lésionnelle.;1;5;5;2
+1;adénocarcinome liberkhünien bien différencié;2;5;5;2
+1;adénocarcinome lieberkhunien moyennement différencié;2;5;5;2
+1;adénocarcinome lieberkhunien;1;5;5;3
+1;Adénocarcinome lieberkuhnien moyennement différencié;2;5;5;3
+1;adénocarcinome peu à moyennement différencié;1;5;5;3
+1;adénocarcinome de type intestinal bien à moyennement différencié + contingent mucineux de 20%;1;5;5;4
+1;adénocarcinome liberkhünien moyennement différencié;1;5;5;4
+1;adénocarcinome lieberkühnien bien à moyennement différencié - taille du résidu tumoral = 10 mm;2;5;5;4
+1;adénocarcinome lieberkühnien moyennement à peu différencié;2;5;5;4
+1;adenocarcinome lieberkuhnien moyennement différencié;2;5;5;4
+2;Adénocarcinome lieberkuhnien moyennement différencié;1;5;5;4
+1;adénocarcinome lieberkühnien moyennement différencié;1;5;5;4
+1;adénocarcinome mucineux moyennement différencié;1;5;5;4
+1;adenocarcinome lieberkhunien bien différencié avec regression colloïde post-chimiothérapieestimée à 20 % de la surface tumorale.;2;5;5;5
+1;adenocarcinome lieberkhünien moyennement différencié;2;5;5;5
+1;Adénocarcinome lieberkuhnien moyennement différencié bifocal : angle droit et angle gauche;1;5;5;5
+1;persistance d'un adénocarcinome lieberkuhnien moyennement différencié.;2;5;5;6
+1;adénocarcinome lieberkühnien moyennement différencié avec un contingent colloïde de 20 %.;1;5;6;1
+1;adénocarcinome mucineux avec contingent à cellules en bague à châton;1;5;6;1
+1;adénocarcinome intestinal bien à moyennement différencié;2;5;6;2
+1;adénocarcinome lieberkuhnien moyennement différencié;1;5;6;2
+2;adénocarcinome lieberkühnien moyennement différencié;2;5;6;2
+1;adénocarcinome lierberkühnien moyennement différencié;1;5;6;2
+1;adénocarcinome bien différencié;1;5;6;3
+1;adénocarcinome colloïde;1;5;6;3
+1;adénocarcinome liberkhunien moyennement différencié;1;5;6;3
+1;adénocarcinome liberkühnien moyennement différencié;1;5;6;3
+1;adénocarcinome lieberkhunien moyennement différencié;1;5;6;3
+1;adénocarcinome lieberkühnien avec regression fibro-oedémateuse et colloide;2;5;6;3
+1;adenocarcinome lieberkuhnien bien à moyennement différencié;1;5;6;3
+1;adénocarcinome lieberkühnien dans l'ensemble bien différencié;2;5;6;3
+1;Adénocarcinome lieberkühnien moyennement à peu différencié;1;5;6;3
+1;adénocarcinome lieberkuhnien moyennement différencié;1;5;6;3
+1;adénocarcinome lieberkühnien moyennement différencié, comportant un contingent mucineux (<50%);1;5;6;3
+1;Adénocarcinome lieberkuhnien moyennement à peu différencié à flexion colloïde;1;5;6;4
+2;adénocarcinome lieberkühnien moyennement différencié.;1;5;6;4
+1;2 adénocarcinome liberkhunien moyennement différencié avec contingent colloïde (de 40% pour la plus petite tumeur et 5% pour la tumeur la plus volumineuse);1;5;6;5
+1;adénocarcinome lieberkhunien moyennement différentié;1;5;6;5
+1;adenocarcinome lieberkuhnien bien différencié de 20 mm, peu modifié par la chimiothérapie (reliquat vivace estimé à 90%);2;5;6;5
+1;adénocarcinome lieberkuhnien moyennement différencié avec composante colloïde;1;5;6;5
+1;adénocarcinome lieberkühnien avec contingent colloïde (20%);2;5;6;6
+2;adénocarcinome lieberkühnien moyennement différencié;1;5;7;3
+1;adénocarcinome lieberkühnien moyennement différencié avec flexion colloïde évaluée à 30 %.;1;5;7;3
+1;adénocarcinome moyennement différencié;1;5;7;3
+1;adénocarcinome infiltrant de type intestinal bien différencié avec contingent colloïde d'environ 30% développé sur un adénome tubulo-villeux;1;5;7;4
+1;adénocarcinome lieberkuhnien moyennement à bien différencié;2;5;7;4
+1;adenocarcinome lieberkhunien moyennement différencié;1;5;7;5
+1;adénocarcinome liberkhunien moyennement différencié;1;5;8;1
+1;adénocarcinome lieberkühnien moyennement différencié infiltrant;1;5;8;1
+1;adénocarcinome lieberkünien bien différencié;1;5;8;1
+1;adénocarcinome moyennement différentié;1;5;8;1
+1;adénocarcinome mucineux moyennement différencié;1;5;8;1
+1;Adénocarcinome lieberkuhnien bien différencié;1;5;8;2
+1;adénocarcinome lieberkuhnien moyennement différencié;2;5;8;2
+1;adénocarcinome infiltrant liberkhunien peu à moyennement différencié avec contingent mucineux de 15%;1;5;8;3
+1;adénocarcinome libererkhunien moyennement différentié;2;5;8;3
+1;adénocarcinome lieberkhunien bien à moyennement différencié;1;5;8;3
+1;adénocarcinome peu à moyennement différencié;1;5;8;3
+1;adenocarcinome lieberkuhnien bien à moyennement différencié.;1;5;8;4
+1;adénocarcinome lieberkuhnien moyennement à peu différencié;1;5;8;4
+1;adénocarcinome lieberkühnien moyennement à peu différencié, avec contingent mucineux < 20%;2;5;8;4
+1;adénocarcinome lieberkühnien moyennement différencié;1;5;8;4
+1;adénocarcinome lieberkühnien moyennement différencié.;1;5;8;4
+1;adenocarcinome lieberkhunien avec contingent mucineux estimé à 90% de la surface tumorale, peu remanié par la thérapeutique, mesurant 25 mm de grand axe.;2;5;8;5
+1;tumeur mixte associant un contingent d'adénocarcinome infiltrant lieberkhunien bien différencié et, malgré un immunophénotype incomplet, un probable contingent de tumeur neuroendocrine bien différenciée de grade estimé G2 (MiNEN);2;5;8;5
+1;adénocarcinome lieberkhunien moyennement différencié;2;5;8;6
+1;adénocarcinome de type intestinal moyennement à peu différencié avec contingent mucineux minoritaire;2;5;9;2
+1;adénocarcinome lieberkühnien avec régression colloïde partielle;2;5;9;2
+1;Adénocarcinome lieberkühnien moyennement différencié, avec remaniements nécrotiques minimes ( < 5%).;2;5;9;2
+1;adenocarcinome lieberkhunien moyennement différencié avec contingent colloïde profond (estimé à 40% de la surface tumorale).;1;5;9;3
+1;Adénocarcinome lieberkühnien moyennement différencié avec composante peu différenciée à cellules indépendantes (50 % de la surface tumorale).;1;5;9;3
+1;adénocarcinome mucineux avec un contingent de cellules indépendantes représentant 40 % de la surface tumorale;1;5;9;3
+1;adénocarcinome mucineux moyennement différencié;1;5;9;4
+1;adénocarcinome lieberkühnien moyennement différencié;1;6;1;2
+1;adénocarcinome lieberkühnien moyennement différencié avec composante colloïde (< 40 %);2;6;1;2
+1;adénocarcinome lieberkühnien (NOS) moyennement différencié, focalement peu différencié (<5%) et avec contingent mucineux (40%);1;6;1;3
+1;adénocarcinome lieberkuhnien bien différencié;1;6;1;3
+1;adénocarcinome lieberkuhnien bien différencié, variant "adenoma-like".;1;6;1;3
+1;adénocarcinome lieberkhunien moyennement différencié;2;6;1;4
+1;adénocarcinome lieberkühnien moyennement différencié.;2;6;1;4
+1;adénocarcinome lierberkühnien moyennement à bien différencié;1;6;1;4
+1;Adénocarcinome liberkhünien bien différencié;2;6;1;6
+1;Carcinome colloïde;1;6;3;2
+1;adénocarcinome lieberkhunien moyennement à peu différencié + contingent mucineux profond (20%);2;6;3;3
+1;adénocarcinome lieberkuhnien bien à moyennement différencié;2;6;5;2
+1;adenocarcinome lieberkuhnien moyennement différencié;2;6;5;2
+1;adénocarcinome lieberkühnien moyennement (50%) et peu différencié (50%), sans contingent colloïde ou mucineux;1;6;8;3
+1;adenocarcinome lieberkhunien moyennement différencié;2;6;9;2
+1;adénocarcinome lieberkuhnien bien à moyennement différencié;1;6;9;3
+1;Adénocarcinome lieberkühnien moyennement différencié;1;6;9;3
+1;adénocarcinome lieberkhunien moyennement à peu différencié;1;6;9;5
+1;carcinome colloïde;1;7;1;1
+1;moyennement différencié;1;7;1;2
+1;adénocarconome lieberkühnien moyennement différencié;2;7;2;1
+1;absence de lésion adénocarcinomateuse ou adénomateuse résiduelle après mucosectomie (mai 2017);1;8;1;3
+1;après polypectomie, absence de reliquat tumoral adénomateux ou adénocarcinomateux;1;8;1;4
+1;remaniements cicatriciels post-polypectomie sans reliquat de carcinome infiltrant ni adénomateux identifiable;1;8;1;4
+1;adébnocarcinome lieberkhunien moyennement à peu différencié;1;8;9;3
+1;adénocarcinome de type intestinal (NOS) moyennement différencié;1;9;1;1
+1;Adénocarcinome lieberkühnien bien différencié;1;9;1;1
+1;adénocarcinome lieberkuhnien moyennement différencié;1;9;1;1
+1;adénocarcinome lieberkühnien moyennement différencié;2;9;1;1
+1;adénocarcinome liberkuhnien moyennement différencié;2;9;1;3
+1;adénocarcinome librekhunien moyennement différencié;1;9;1;3
+1;adénocarcinome lieberkühnien moyennement différencié;1;9;1;3
+1;adénocarcinome lieberkühnien moyennement différencié.;1;9;1;3
+1;adénocarcinome lieberkühnien avec régression colloïde partielle;1;9;2;1
+1;adénocarcinome de type liberkuhnien bien à moyennement différencié;1;9;2;3
+1;adénocarcinome moyennement différencié;1;9;2;3
+1;adénocarcinome lieberkühnien moyennement différencié partiellement colloïde (20%);1;9;3;2
+1;adénocarcinome lieberkuhnien (NOS) moyennement différencié;1;9;5;1
+1;adénocarcinome lieberkhunien moyennement différencié;1;9;5;3
+1;adénocarcinome lieberkuhnien bien différencié;1;9;5;3
+1;adénocarcinome peu différencié avec contingent de cellules indépendantes.;2;9;5;3
+1;adénocarcinome de type intestinal (NOS) bien à moyennement différencié;1;9;5;4
+1;adénocarcinome lieberkhunien avec contingent mucineux estimé à 40%;2;9;5;5
+1;adénocarcinome lieberkuhnien bien à moyennement différencié;1;9;6;3
+1;adénocarcinome lieberkühnien moyennement différencié avec un contingent colloïde évalué à 25%;1;9;6;4
+1;adénocarcinome lieberkühnien moyennement différencié avec un contingent peu différencié estimé à moins de 20% de la surface tumorale totale.;1;9;6;4
+1;adénocarcinome de type lieberkuhnien moyennement différencié;2;9;6;6
+1;adénocarcinome lieberkuhnien bien à moyernnement différencié;1;9;6;6
+1;Adénocarcinome lieberkühnien moyennement à peu différencié;2;9;6;6
+1;adénocarcinome lieberkühnien moyennement différencié;1;9;8;1
+1;Adénocarcinome lieberkuhnien moyennement différencié;1;9;8;2
+1;adénocarcinome lieberkühnien avec regression colloïde partielle (perstistance de glandes carcinomateuses au sein des flaques de mucus);2;9;8;6
+1;Adénocarcinome lieberkühnien bien différencié;1;9;8;6
+1;adénocarcinome lieberkühnien moyennement différencié;2;9;9;2
+1;adénocarcinome lieberkühnien moyennement différencié.;2;9;9;4
+1;adénocarcinome lieberkuhnien peu différencié;1;9;9;4
+1;adénocarcinome peu différencié;2;9;9;4
+1;adénocarcinome lieberkühnien moyennement différencié.;1;9;9;5
+1;adénocarcinome lieberkuhnien peu différencié;1;9;9;5
+1;adénocarcinome colloïde;1;9;9;6
+1;adénocarcinome de type lieberkühnien moyennement à peu différencié;1;9;9;6
+1;adenocarcinome lieberkhunien moyennement à peu différencié;1;9;9;6
+1;adénocarcinome lieberkühnien bien différencié;1;A;1;1
+1;adénocarcinome lieberkuhnien moyennement différencié;1;A;1;3
+1;adénocarcinome moyennement à peu différencié;1;A;1;3
+1;adénocarcinome infiltrant lieberkuhnien de haut grade avec contingent mucineux et contingent à cellules en bague à châton;1;A;1;4
+1;Adénocarcinome lieberkuhnien moyennement différencié;1;A;1;4
+1;adénocarcinome lieberkuhnien moyennement différencié avec contingent colloïde évalué à 10%.;1;A;1;4
+1;adénocarcinome lieberkuhnien moyennement différencié vivace à 70% après chimiothérapie;2;A;1;4
+1;adenocarcinome lieberkuhnien bien à moyennement différencié;1;A;1;5
+1;adénocarcinome liberkhunien moyennement différencié;2;A;2;3
+1;adénocarcinome lieberkuhnien moyennement différencié;2;A;2;4
+1;adenocarcinome lieberkhunien moyennement différencié invasif de 110 mm, circonférentiel, sténosant.;1;A;5;3
+1;adénocarcinome lieberkuhnien moyennement différencié;2;A;5;6
+1;adénocarcinome lieberkuhnien moyennement différencié;1;A;6;1
+1;adénocarcinome lieberkuhnien bien différencié;1;A;6;2
+1;Adénocarcinome peu différencié.;1;A;6;3
+1;carcinome colloïde;1;A;6;3
+1;adénocarcinome lieberkühnien bien différencié;2;A;7;2
+1;adénocarcinome lieberkuhnien peu différencié;2;A;8;2
+1;adénocarcinome liberkhunien moyennement différencié avec contingent mucineux colloïde (40%);2;A;8;3
+1;adénocarcinome moyennement différencié lieberkuhnien mucosecrétant;1;A;8;4
+1;adénocarcinome lieberkühnien peu différencié avec régression colloïde partielle;1;A;8;6
+1;adénocarcinome lieberkuhnien bien différencié à moyennement différencié;2;A;9;2
+1;adénocarcinome lieberkühnien moyennent à peu différencié;1;A;9;2
+1;Adénocarcinome lieberkühnien moyennement différencié avec flexion colloïde (mucineuse) partielle, 40 %;1;A;9;3
