@@ -13,8 +13,8 @@ from itertools import islice
 import warnings
 
 
-data = pd.read_csv('../../data/clean_poids.csv')
-MAD = pd.read_csv('mad_by_ippr.csv')
+data = pd.read_csv('../data/all_data.csv')
+MAD = pd.read_csv('../data/mad_by_ippr.csv')
 
 ipprs = data.IPPR.unique()
 ippr = random.choice(ipprs)

@@ -4,8 +4,6 @@ Created on Wed Nov 25 09:36:15 2020
 
 @author: DANCEL
 """
-
-
 # test = pd.read_csv('test_poids.csv')
 # test2 = pd.read_csv('test_poids2.csv')
 # test3 = pd.read_csv('test_poids3.csv')

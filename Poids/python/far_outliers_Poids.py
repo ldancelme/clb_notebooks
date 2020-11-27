@@ -10,6 +10,6 @@ import numpy as np
 
 
 
-data = pd.read_csv('../../data/clean_poids.csv')
+data = pd.read_csv('../all_data.csv')
 
 ipprs = data.IPPR.unique()

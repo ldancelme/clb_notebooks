@@ -13,7 +13,7 @@ from scipy.stats import kurtosis
 from scipy.stats import skew
 
 
-data = pd.read_csv('../../data/clean_poids.csv')
+data = pd.read_csv('../data/all_data.csv')
 data5 = data[data['age_at_entry'] < 1850]
 data10 = data[data['age_at_entry'] < 3650]
 data20 = data[data['age_at_entry'] < 7300]
@@ -93,4 +93,4 @@ data.insert(6, 'std', zeros)
 std = std.to_dict()
 data['std'] = data['IPPR'].map(std)
     
-# data.to_csv('clean_poids.csv', index=False)
+# data.to_csv('../data/all_data.csv', index=False)

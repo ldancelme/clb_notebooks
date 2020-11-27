@@ -9,8 +9,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-all_data = pd.read_csv('../../data/clean_poids.csv')
-data = pd.read_csv('otls_100_ipprs.csv')
+data = pd.read_csv('../data/all_data.csv')
+data = pd.read_csv('../data/otls_100_ipprs.csv')
 
 # data = data[data['count'] > 12]
 all_data = all_data[all_data['Poids']> 200]

@@ -12,7 +12,7 @@ from tqdm import tqdm
 import warnings
 warnings. filterwarnings('ignore')
 
-data = pd.read_csv('../../data/clean_poids.csv')
+data = pd.read_csv('../data/all_data.csv')
 data = data[data['age_at_entry'] > 7300]
 ipprs = data.IPPR.unique()
 ipprs = np.array(ipprs)

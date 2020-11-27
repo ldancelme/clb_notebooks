@@ -1,0 +1,13 @@
+/////////////////////////////////////////// ippr2nodos
+SELECT @res = NODOS
+FROM MAL001
+WHERE concat(CLE_EXT, NODOS_EXT) = @ippr
+
+RETURN @res
+
+/////////////////////////////////////////// nodos2ippr
+SELECT @res = concat(CLE_EXT, NODOS_EXT)
+FROM MAL001
+WHERE MAL001.NODOS = @nodos
+
+RETURN @res

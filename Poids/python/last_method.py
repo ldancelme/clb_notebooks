@@ -15,9 +15,8 @@ warnings. filterwarnings('ignore')
 
 txt_out = open("output2.txt","a") 
 
-data = pd.read_csv('../../data/clean_poids.csv')
-
-data_otls = pd.read_csv('otls_100_ipprs.csv')
+data = pd.read_csv('../data/all_data.csv')
+data_otls = pd.read_csv('../data/otls_555_ipprs.csv')
 ipprs_otls = np.array(data_otls.IPPR.unique())
 
 data = data[data['age_at_entry'] > 7300]

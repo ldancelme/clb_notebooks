@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 
-data = pd.read_csv('../../data/clean_poids.csv')
+data = pd.read_csv('../data/all_data.csv')
 applis = data.Appli.unique()
 
 lvl1 = ['DOS', 'BLO']
@@ -36,4 +36,4 @@ for idx, val in tqdm(enumerate(data.values)):
     data.iloc[idx,8] = x
     print('Appli : {}\t priority_lvl:{}'.format(data.iloc[idx, 4], data.iloc[idx, 8]))
 
-# data.to_csv('../../data/age_interval/clean_poids.csv', index=False)
+# data.to_csv('../data/all_data.csv', index=False)
