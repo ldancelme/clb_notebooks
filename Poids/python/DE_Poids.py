@@ -151,7 +151,7 @@ def cleaning_poids(df):
 
 poids = cleaning_poids(poids)
 
-poids.to_csv('clean_poids.csv', index=False)
+poids.to_csv('all_data.csv', index=False)
 
 
 print()
